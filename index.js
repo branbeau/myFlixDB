@@ -54,3 +54,19 @@ app.get('/documentation', (req, res) => {
 app.get('/movies', (req, res) => {
   res.json(topMovies);
 });
+
+app.get('/movies', passport.authenticate('jwt',{session:false}), (req, res) => {
+  Movies.find({ Movies: req.params.Movies })
+    .then((movies) => {
+      res.json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
+});
+
+// Port 8080 listen request
+app.listen(8080, () => {
+  console.log('Server listening on port :8080');
+});
