@@ -16,10 +16,15 @@ app.use(morgan('common'));
 let topMovies = [
   {
     "Title": "Coming to America",
-    "Description": "A 1988 American romantic comedy film directed by John Landis and based on a story originally created by Eddie Murphy, who also stars in the lead role. The film also co-stars Arsenio Hall, James Earl Jones, Shari Headley, and John Amos. The film was released in the United States on June 29, 1988. Eddie Murphy plays Akeem Joffer, the crown prince of the fictional African nation of Zamunda, who travels to the United States in the hopes of finding a woman he can marry and love for who she is, not for her status or for having been trained to please him."
-    "Genre": "Romantic Comedy"
-    "Director": "John Landis"
-    "Image URL": "https://en.wikipedia.org/wiki/Coming_to_America#/media/File:ComingtoAmerica1988MoviePoster.jpg"
+    "Description": "A 1988 American romantic comedy film directed by John Landis and based on a story originally created
+     by Eddie Murphy, who also stars in the lead role. The film also co-stars Arsenio Hall, James Earl Jones, Shari
+     Headley, and John Amos. The film was released in the United States on June 29, 1988. Eddie Murphy plays Akeem
+     Joffer, the crown prince of the fictional African nation of Zamunda, who travels to the United States in the hopes
+     of finding a woman he can marry and love for who she is, not for her status or for having been trained to please
+     him.",
+    "Genre": "Romantic Comedy",
+    "Director": "John Landis",
+    "Image URL": "https://en.wikipedia.org/wiki/Coming_to_America#/media/File:ComingtoAmerica1988MoviePoster.jpg",
   },
   {
     "title": "Notebook",
