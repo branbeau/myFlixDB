@@ -19,7 +19,7 @@ let movies = [
             "Birth Year": 1950 
     },
     "ImageUrl": "https://en.wikipedia.org/wiki/Coming_to_America#/media/File:ComingtoAmerica1988MoviePoster.jpg",
-    },
+  },
   {
     "Title":"Notebook"
     "Description": "A poor yet passionate young man (Ryan Gosling) falls in love with a rich young woman (Rachel McAdams), giving her a sense of freedom, but they are soon separated because of their social differences.",
@@ -35,7 +35,7 @@ let movies = [
     "ImageUrl": "https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i"
   },
   {
-    "title": "Titanic"
+    "Title": "Titanic"
     "Description": "",
     "Genre": {
             "Name": "",
@@ -155,26 +155,36 @@ app.get('/movies',(req,res) => {
 })
 
 app.get('/movies/:title',(req,res) => {
-  const { title } = req.params;
-  const movie = movies.find( movie => movie.Title === title);
+    const { title } = req.params;
+    const movie = movies.find( movie => movie.Title === title);
 
-  if (movie) {
-    res.status(200).json(movies);
-  } else {
-    res.status(400).send('no such movie')
-  } 
+    if (movie) {
+      res.status(200).json(movies);
+    } else {
+      res.status(400).send('no such movie')
+    } 
 
 })
 
 app.get('/movies/genre/:genreName',(req,res) => {
-  const { genreName } = req.params;
-  const genre = movies.find( movie => movie.Genre.Name === genreName ).Genre;
+    const { genreName } = req.params;
+    const genre = movies.find( movie => movie.Genre.Name === genreName ).Genre;
 
-  if (genre) {
-    res.status(200).json(genre);
-  } else {
-    res.status(400).send('no such genre')
-  } 
+    if (genre) {
+      res.status(200).json(genre);
+    } else {
+      res.status(400).send('no such genre')
+    } 
+
+app.get('/movies/directors/:directorName',(req,res) => {
+    const { directorName } = req.params;
+    const director = movies.find( movie => movie.Director.Name === directorName ).Director;
+
+    if (director) {
+      res.status(200).json(director);
+    } else {
+      res.status(400).send('no such director')
+    } 
 
 });
 
