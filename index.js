@@ -5,7 +5,7 @@ const express = require('express'),
 
 app.use(bodyParser.json());
 
-  const movies = [
+  let movies = [
     {
       "Title":"Coming to America",
       "Description":"An extremely pampered African prince travels to Queens, New York, and goes undercover to find a wife that he can respect for her intelligence and strong will.",
@@ -160,33 +160,33 @@ app.use(bodyParser.json());
 
 // READ
 // Gets the list of data about ALL movies
-app.get('/movies',(req,res) => {
+app.get('/movies', (req, res) => {
   res.status(200).json(movies);
 });
 
-app.get('/movies/:title',(req,res) => {
+app.get('/movies/:title', (req, res) => {
     const { title } = req.params;
-    const movie = movies.find( movie => movie.Title === title);
+    const movie = movies.find( movie => movie.Title === title );
 
     if (movie) {
-      res.status(200).json(movies);
+      res.status(200).json(movie);
     } else {
-      res.status(400).send('no such movie');
+      res.status(400).send('no such movie')
     } 
-
 });
 
-app.get('/movies/genre/:genreName',(req,res) => {
+app.get('/movies/genre/:genreName', (req, res) => {
     const { genreName } = req.params;
     const genre = movies.find( movie => movie.Genre.Name === genreName ).Genre;
 
     if (genre) {
       res.status(200).json(genre);
     } else {
-      res.status(400).send('no such genre');
+      res.status(400).send('no such genre')
     } 
+});
 
-app.get('/movies/directors/:directorName',(req,res) => {
+app.get('/movies/directors/:directorName', (req, res) => {
     const { directorName } = req.params;
     const director = movies.find( movie => movie.Director.Name === directorName ).Director;
 
@@ -195,7 +195,6 @@ app.get('/movies/directors/:directorName',(req,res) => {
     } else {
       res.status(400).send('no such director')
     } 
-
 });
 
 app.listen(8080, () => 
