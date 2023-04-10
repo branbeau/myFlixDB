@@ -5,13 +5,26 @@ const express = require('express'),
 
 app.use(bodyParser.json());
 
-  let movies = [
+  let users = [
+    {
+      "id": 1,
+      "name": "Gabrielle",
+      "favoriteMovies":[],
+    },
+    {
+      "id": 2,
+      "name": "Camille",
+      "favoriteMovies": "[]"
+    },
+  ];
+
+  let topMovies = [
     {
       "Title":"Coming to America",
       "Description":"An extremely pampered African prince travels to Queens, New York, and goes undercover to find a wife that he can respect for her intelligence and strong will.",
       "Genre": {
-              "name":"Romantic Comedy",
-              "description":"A movie or play that deals with love in a light, humorous way."
+              "Name":"Romantic Comedy",
+              "Description":"A movie or play that deals with love in a light, humorous way."
       },
       "Director": {
               "Name":"John Landis",
@@ -31,7 +44,7 @@ app.use(bodyParser.json());
       "Director": {
               "Name":"Nick Cassavetes",
               "Bio":"Nicholas David Rowland Cassavetes (born May 21, 1959)[1] is an American actor, director, and writer. He has directed such films as She's So Lovely (1997), John Q. (2002), The Notebook (2004), Alpha Dog (2006), and My Sister's Keeper (2009). His acting credits include an uncredited role in Husbands (1970)—which was directed by his father, John Cassavetes—as well as roles in the films The Wraith (1986), Face/Off (1997), and Blow (2001).",
-              "birthYear": 1959
+              "BirthYear": 1959
       },
       "ImageUrl":"https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i",
     },
@@ -44,9 +57,9 @@ app.use(bodyParser.json());
               "Description":"Romance films, romance movies, or ship films involve romantic love stories recorded in visual media for broadcast in theatres or on television that focus on passion, emotion, and the affectionate romantic involvement of the main characters."
       },
       "Director": {
-              "name":"James Cameron",
-              "bio":"James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry's most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
-              "birthYear":1954
+              "Name":"James Cameron",
+              "Bio":"James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry's most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
+              "BirthYear":1954
       },
       "ImageUrl":"https://en.wikipedia.org/wiki/Titanic_(1997_film)#/media/File:Titanic_(1997_film)_poster.png",
     },
@@ -69,47 +82,47 @@ app.use(bodyParser.json());
     {
       
       "Title":"Ray",
-      "Description":"",
+      "Description":"The story of the life and career of the legendary rhythm and blues musician Ray Charles, from his humble beginnings in the South, where he went blind at age seven, to his meteoric rise to stardom during the 1950s and 1960s.",
       "Genre": {
-              "Name":"",
-              "Description":""
+              "Name":"Biographical Muscial Drama",
+              "Description":"A musical biography typically develops in a way similar to a realistic novel—a coherent, unified voice claims to present the truth about a life, while omniscient narration, repeating themes and symbols, and a linear chronological presentation of events provide readers with the illusion of totality and closure." 
       },
       "Director": {
-              "Name":"",
-              "Bio":"",
-              "birthYear":2000
+              "Name":"Taylor Hackford",
+              "Bio":"Taylor Edwin Hackford (born December 31, 1944) is an American film director and former president of the Directors Guild of America.",
+              "birthYear":1944
       },
-      "ImageUrl":"",
+      "ImageUrl":"https://en.wikipedia.org/wiki/Ray_(film)#/media/File:Ray_poster.jpg",
     },
     {
       
       "Title":"The Pursuit of Happyness",
-      "Description":"",
+      "Description":"A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.",
       "Genre": {
-              "Name":"",
-              "Description":""
+              "Name":"Biography Drama",
+              "Description":"A film that dramatizes the life of a non-fictional or historically-based person or people. "
       },
       "Director": {
-              "Name":"",
-              "Bio":"",
-              "birthYear":2023 
+              "Name":"Gabriele Muccino",
+              "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
+              "BirthYear":1967
       },
-      "ImageUrl":"",
+      "ImageUrl":"https://www.imdb.com/title/tt0454921/",
     },
     {
       
       "Title":"Seven Pounds",
-      "Description":"",
+      "Description":"Seven Pounds is a 2008 American drama film directed by Gabriele Muccino starring Will Smith as a man who sets out to change the lives of seven people.",
       "Genre": {
-              "Name":"",
-              "Description":""
+              "Name":"Drama",
+              "Description":"Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature."
       },
       "Director": {
-              "Name":"",
-              "Bio":"",
-              "birthYear":2024  
+              "Name":"Gabriele Muccino",
+              "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
+              "BirthYear":1967 
       },
-      "ImageUrl":""
+      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i"
     },
     {
       
@@ -158,12 +171,118 @@ app.use(bodyParser.json());
     }
   ];
 
+// CREATE
+// Allow new users to register
+app.post('/users', (req, res) => {
+  const newUser = req.body;
+
+  if (newUser.name) {
+    newUser.id = uuid.u4();
+    users.push(newUser);
+    res.status(201).json(newUser)
+  } else {
+      res.status(400).send('users need names')
+  }
+  
+});
+
+// UPDATE
+// Allow users to update their user info (username)
+app.put('/users/:id', (req.res => 
+  const { id } = req.params;
+  const updatedUser = req.body;
+
+  let user = users.find(user => user.id == id );
+
+  if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+
+// CREATE
+app.post('/users/:id/:movieTitle', (req, res) => {
+  const { id } req.params;
+  const updatedUser = req.body;
+
+  let user = users.find( user => user.id == id );
+
+  if (user) {
+    user.name = updatedUser.name;
+    res.status(200).json(user);
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+
+app.post('/users/:id/:movieTitle', (req, res) => {
+  const { id, movieTitle } req.params;
+  const updatedUser = req.body;
+
+  let user = users.find( user => user.id == id );
+
+  if (user) {
+    user.topMovies.push(movieTitle);
+    res.status(200).json(user);
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+// Allow users to add a movie to their list of favorites (showing only a text that a movie has been added)
+app.post('/users/:id/:movieTitle', (req, res) => {
+  const { id, movieTitle } req.params;
+
+  let user = users.find( user => user.id == id );
+
+  if (user) {
+    user.topMovies.push(movieTitle);
+    res.status(200).send(`${movieName} has been added to user ${id}'s array`);;
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+// DELETE
+// Allow users to remove a movie from their list of favorites (showing only a text that a movie has been removed)
+app.delete('/users/:id/:movieTitle', (req, res) => {
+  const { id, movieTitle } req.params;
+
+  let user = users.find( user => user.id == id );
+
+  if (user) {
+    user.favoriteMovies = user.favoriteMovies.filter( title => title !== movieTitle);
+    res.status(200).send(`${movieName} has been removed from user ${id}'s array`);;
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+// Allow existing users to deregister (showing only a text that a user email has been removed)
+app.delete('/users/:id/:movieTitle', (req, res) => {
+  const { id, movieTitle } req.params;
+
+  let user = users.find( user => user.id == id );
+
+  if (user) {
+    users = user.filter( user => user.id !== id);
+    res.status(200).send(`user ${id} has been deleted`);
+  } else {
+      res.status(400).send('no such user')
+  }
+
+})
+
 // READ
 // Gets the list of data about ALL movies
 app.get('/movies', (req, res) => {
   res.status(200).json(movies);
 });
-
+//Gets data (description, genre, director, image URL, whether it’s featured or not) about a single movie by title to the user
 app.get('/movies/:title', (req, res) => {
     const { title } = req.params;
     const movie = movies.find( movie => movie.Title === title );
@@ -174,7 +293,7 @@ app.get('/movies/:title', (req, res) => {
       res.status(400).send('no such movie')
     } 
 });
-
+// Gets data about a genre (description) by name/title (e.g., “Thriller”)
 app.get('/movies/genre/:genreName', (req, res) => {
     const { genreName } = req.params;
     const genre = movies.find( movie => movie.Genre.Name === genreName ).Genre;
@@ -184,8 +303,8 @@ app.get('/movies/genre/:genreName', (req, res) => {
     } else {
       res.status(400).send('no such genre')
     } 
-});
-
+})
+//Gets data about a director (bio, birth year, death year) by name;
 app.get('/movies/directors/:directorName', (req, res) => {
     const { directorName } = req.params;
     const director = movies.find( movie => movie.Director.Name === directorName ).Director;
