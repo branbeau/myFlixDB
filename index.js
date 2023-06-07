@@ -10,9 +10,6 @@ const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
-const Genres = Models.Genre;
-const Directors = Models.Director;
-
 
 mongoose.connect('mongodb://localhost:27017/myFlixDB', { 
   useNewUrlParser: true, 
@@ -40,15 +37,80 @@ app.get("/movies", (req, res) => {
     });
 });
 
-app.get("/users", function (req, res) {
+// Get all users
+app.get('/users', (req, res) => {
   Users.find()
-    .then(function (users) {
+    .then((users) => {
       res.status(201).json(users);
     })
-    .catch(function (err) {
+    .catch((err) => {
       console.err(err);
-      res.status(500).send("Error: " + err);
+      res.status(500).send('Error: ' + err);
     });
+});
+
+// Get a user by username
+app.get('users/:Username', (req, res) => {
+  Users.findOne({ Username: req.params.Username })
+  .then((user) => {
+    res.json(user);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error:' + err);
+  })
+});
+  
+// Update user's info by username
+app.put('users/:Username', (req, res) => {
+  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
+  {
+    Username: req.body.Username,
+    Password: req.body.Password,
+    Email: req.body.Email,
+    Birthday: req.body.Birthday
+  }
+},
+{ new: true }, // This line makes sure that the updated document is returned.
+( err, updatedUser) => {
+  if(err) {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+// Add a movie to a user's list of favorites
+app.post('/users/:Username/movies/:MovieID', (req, res) => {
+  Users.FindOneAndUpdate({ Username: req.params.Username }, {
+    $push: { FavoriteMovies: req.params.MovieID }
+  },
+  { new: true }, // This line makes sure that the updated document is returned. 
+  (err, updatedUser) => {
+    if (err) {
+      res.status(500).send('Error: ' + err);
+    } else {
+      res.json(updatedUser);
+    }
+  });
+});
+
+// Delete a user by username
+app.delete('/users/:Username', (req, res) => {
+  Users.findOneAndRemove({ Username: req.params.Username })
+  .then((user) => {
+    if(!user) {
+      res.status(400).send(req.params.Username + ' was not found ');
+    } else {
+      res.status(200).send(req.params.Username + ' was deleted ');
+    }
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error ' + err);
+  });
 });
 
 //Get JSON movie by title
@@ -63,12 +125,13 @@ app.get("/movies/:Title", (req, res) => {
     });
 });
 
+// Get genre
 app.get("/genre/:Name", (req, res) => {
-  Genres.findOne({ Name: req.params.Name })
+  Movies.findOne({ GenreName: req.params.Name }).select("Genre")
     .then((genre) => {
-      res.json(genre.Description);
+      res.json(genre);
     })
-    .catch((err) =>  {
+    .catch((err) => {
       console.error(err);
       res.status(500).send("Error: " + err);
     });
@@ -76,7 +139,7 @@ app.get("/genre/:Name", (req, res) => {
 
 // Get director info
 app.get("/director/:Name", (req, res) => {
-  Directors.findOne({ Name: req.params.Name })
+  Movies.findOne({ DirectorName: req.params.Name }).select("Director")
     .then((director) => {
       res.json(director);
     })
@@ -85,165 +148,12 @@ app.get("/director/:Name", (req, res) => {
     });
   });
 
-let movies = [
-    {
-      "Title":"Coming to America",
-      "Description":"An extremely pampered African prince travels to Queens, New York, and goes undercover to find a wife that he can respect for her intelligence and strong will.",
-      "Genre": {
-              "Name":"Romantic Comedy",
-              "Description":"A movie or play that deals with love in a light, humorous way."
-      },
-      "Director": {
-              "Name":"John Landis",
-              "Bio":"John David Landis (born August 3, 1950)[1] is an American comedy, horror, and fantasy filmmaker and actor. He is best known for the comedy films that he has directed – such as The Kentucky Fried Movie (1977), National Lampoon's Animal House (1978), The Blues Brothers (1980), An American Werewolf in London (1981), Trading Places (1983), Three Amigos (1986), Coming to America (1988) and Beverly Hills Cop III (1994), and for directing Michael Jackson's music videos for Thriller (1983) and Black or White (1991).",
-              "BirthYear":1950
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Coming_to_America#/media/File:ComingtoAmerica1988MoviePoster.jpg",
-    },
-    {
-
-      "Title":"Notebook",
-      "Description":"A poor yet passionate young man (Ryan Gosling) falls in love with a rich young woman (Rachel McAdams), giving her a sense of freedom, but they are soon separated because of their social differences.",
-      "Genre": {
-              "Name":"Romantic Drama",
-              "Description":"Romance films, romance movies, or ship films involve romantic love stories recorded in visual media for broadcast in theatres or on television that focus on passion, emotion, and the affectionate romantic involvement of the main characters."
-      },
-      "Director": {
-              "Name":"Nick Cassavetes",
-              "Bio":"Nicholas David Rowland Cassavetes (born May 21, 1959)[1] is an American actor, director, and writer. He has directed such films as She's So Lovely (1997), John Q. (2002), The Notebook (2004), Alpha Dog (2006), and My Sister's Keeper (2009). His acting credits include an uncredited role in Husbands (1970)—which was directed by his father, John Cassavetes—as well as roles in the films The Wraith (1986), Face/Off (1997), and Blow (2001).",
-              "BirthYear": 1959
-      },
-      "ImageUrl":"https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i",
-    },
-    {
-
-      "Title":"Titanic",
-      "Description":"A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
-      "Genre": {
-              "Name":"Romanctic Drama",
-              "Description":"Romance films, romance movies, or ship films involve romantic love stories recorded in visual media for broadcast in theatres or on television that focus on passion, emotion, and the affectionate romantic involvement of the main characters."
-      },
-      "Director": {
-              "Name":"James Cameron",
-              "Bio":"James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry's most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
-              "BirthYear":1954
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Titanic_(1997_film)#/media/File:Titanic_(1997_film)_poster.png",
-    },
-    {
-
-      "Title":"Catch Me If You Can",
-      "Description":"Barely 21 yet, Frank is a skilled forger who has passed as a doctor, lawyer and pilot. FBI agent Carl becomes obsessed with tracking down the con man, who only revels in the pursuit.",
-
-      "Genre": {
-              "Name":"Crime/Drama",
-              "Description":"Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a crime.",
-      },
-      "Director": {
-              "Name":"Steven Spielberg",
-              "Bio":"Steven Allan Spielberg born December 18, 1946) is an American film director, writer and producer.",
-              "birthYear":1946
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Catch_Me_If_You_Can#/media/File:Catch_Me_If_You_Can_2002_movie.jpg",
-    },
-    {
-
-      "Title":"Ray",
-      "Description":"The story of the life and career of the legendary rhythm and blues musician Ray Charles, from his humble beginnings in the South, where he went blind at age seven, to his meteoric rise to stardom during the 1950s and 1960s.",
-      "Genre": {
-              "Name":"Biographical Muscial Drama",
-              "Description":"A musical biography typically develops in a way similar to a realistic novel—a coherent, unified voice claims to present the truth about a life, while omniscient narration, repeating themes and symbols, and a linear chronological presentation of events provide readers with the illusion of totality and closure." 
-      },
-      "Director": {
-              "Name":"Taylor Hackford",
-              "Bio":"Taylor Edwin Hackford (born December 31, 1944) is an American film director and former president of the Directors Guild of America.",
-              "birthYear":1944
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Ray_(film)#/media/File:Ray_poster.jpg",
-    },
-    {
-
-      "Title":"The Pursuit of Happyness",
-      "Description":"A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.",
-      "Genre": {
-              "Name":"Biography Drama",
-              "Description":"A film that dramatizes the life of a non-fictional or historically-based person or people. "
-      },
-      "Director": {
-              "Name":"Gabriele Muccino",
-              "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
-              "BirthYear":1967
-      },
-      "ImageUrl":"https://www.imdb.com/title/tt0454921/",
-    },
-    {
-
-      "Title":"Seven Pounds",
-      "Description":"Seven Pounds is a 2008 American drama film directed by Gabriele Muccino starring Will Smith as a man who sets out to change the lives of seven people.",
-      "Genre": {
-              "Name":"Drama",
-              "Description":"Drama Films are serious presentations or stories with settings or life situations that portray realistic characters in conflict with either themselves, others, or forces of nature."
-      },
-      "Director": {
-              "Name":"Gabriele Muccino",
-              "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
-              "BirthYear":1967 
-      },
-      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i"
-    },
-    {
-
-      "Title":"Crazy Rich Asians",
-      "Description":"The story follows a Chinese-American professor who travels to meet her boyfriend's family and is surprised to discover they are among the richest in Singapore.",
-      "Genre": {
-              "Name":"Romantic Comedy-Drama",
-              "Description":"A subgenre of comedy and slice of life fiction, focusing on lighthearted, humorous plot lines centered on romantic ideas, such as how true love is able to surmount most obstacles.",
-      },
-      "Director": {
-              "Name":"Jon M. Chu",
-              "Bio":"Jonathan Murray Chu (born November 2, 1979)is an American film director, producer, and screenwriter. He is best known as the director of 2018's Crazy Rich Asians, the first film by a major Hollywood studio to feature a majority cast of Asian descent in a modern setting since The Joy Luck Club in 1993.",
-              "birthYear":1979
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Jon_M._Chu#/media/File:Jon_M._Chu_2013.jpg",
-    },
-    {
-
-      "Title":"Get Out",
-      "Description":"Get Out is a 2017 American psychological horror film written, co-produced, and directed by Jordan Peele in his directorial debut. It stars Daniel Kaluuya, Allison Williams, Lil Rel Howery, LaKeith Stanfield, Bradley Whitford, Caleb Landry Jones, Stephen Root, and Catherine Keener. The plot follows a young black man (Kaluuya), who uncovers shocking secrets when he meets the family of his white girlfriend (Williams).",
-      "Genre": {
-              "Name":"Horror",
-              "Description":"Motion picture calculated to cause intense repugnance, fear, or dread."
-      },
-      "Director": {
-              "Name":"Jordan Peele",
-              "Bio":"Jordan Haworth Peele (born February 21, 1979) is an American actor, comedian, and filmmaker. He is best known for his film and television work in the comedy and horror genres.[1][2] Peele started his career in sketch comedy before transiting his career as a writer and director of psychological horror and satirical films. In 2017, Peele was included on the annual Time 100 list of the most influential people in the world.",
-              "BirthYear":1979
-        },
-        "ImageUrl":"https://en.wikipedia.org/wiki/Get_Out#/media/File:Get_Out_poster.png",
-    },
-    {
-
-      "Title":"Black Panther",
-      "Description":"Black Panther is a 2018 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 18th film in the Marvel Cinematic Universe (MCU).",
-      "Genre": {
-              "Name":"Action/Adventure",
-              "Description":"Featuring characters involved in exciting and usually dangerous activities and adventures"
-      },
-      "Director": {
-              "Name":"Ryan Coogler",
-              "Bio":"Ryan Kyle Coogler (born May 23, 1986)[1] is an American filmmaker. He is a recipient of four NAACP Image Awards, four Black Reel Awards, a Golden Globe Award nomination, and two Academy Award nominations.",
-              "BirthYear":1986
-      },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Black_Panther_(film)#/media/File:Black_Panther_(film)_poster.jpg",
-    }
-  ];
-    
-//Allow users to register
+//Allow users to register and deregister
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
-      if (user) {
-        return res.status(400).send(req.body.Username + "already exists");
+      if(user) {
+        return res.status(400).send(req.body.Username + 'already exists');
       } else {
         Users.create({
           Username: req.body.Username,
@@ -252,28 +162,18 @@ app.post('/users', (req, res) => {
           Birthday: req.body.Birthday
         })
           .then((user) => {
-            res.status(201).json(user);
+            res.status(201).json(user)
           })
           .catch((error) => {
-            console.error(err);
-            res.status(500).send("Error: " + error);
-          });
-      }
-    });
-
-  const newUser = req.body;
-
-  if (newUser.name) {
-    newUser.id = uuid.u4();
-    users.push(newUser);
-    res.status(201).json(newUser);
-  } else {
-      res.status(400).send('users need names');
-  }
-  
+            console.error(error);
+            res.status(500).send('Error: ' + error);
+          })
+        }
+    })
+    .catch((error => {
+      console.error(error);
+    }));
 });
-
-
 app.listen(8080, () => {
   console.log('Listening on port 8080');
 });
