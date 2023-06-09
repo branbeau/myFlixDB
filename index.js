@@ -172,7 +172,8 @@ app.post('/users', (req, res) => {
     })
     .catch((error => {
       console.error(error);
-    });
+      res.status(500).send('Error: ' + error);
+   });
 });
 app.listen(8080, () => {
   console.log('Listening on port 8080');
