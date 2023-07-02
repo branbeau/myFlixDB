@@ -18,6 +18,13 @@ mongoose.connect('mongodb://localhost:27017/myFlixDB', {
 
 app.use(bodyParser.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+let auth = require('./auth')(app);
+
+const passport = require('passport');
+require('./passport');
+
 //log requests to server
 app.use(morgan("common"));
 
@@ -127,7 +134,7 @@ app.get("/movies/:Title", (req, res) => {
 
 // Get genre
 app.get("/genre/:Name", (req, res) => {
-  Movies.findOne({ Genre.Name: req.params.Name }).select("Genre")
+  Movies.findOne({ GenreName: req.params.Name }).select("Genre")
     .then((genre) => {
       res.json(genre);
     })
@@ -139,7 +146,7 @@ app.get("/genre/:Name", (req, res) => {
 
 // Get director info
 app.get("/director/:Name", (req, res) => {
-  Movies.findOne({ Director.Name: req.params.Name }).select("Director")
+  Movies.findOne({ DirectorName: req.params.Name }).select("Director")
     .then((director) => {
       res.json(director);
     })
@@ -173,7 +180,7 @@ app.post('/users', (req, res) => {
     .catch((error => {
       console.error(error);
       res.status(500).send('Error: ' + error);
-   });
+   }));
 });
 app.listen(8080, () => {
   console.log('Listening on port 8080');
