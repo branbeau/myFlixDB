@@ -101,14 +101,11 @@ app.post('/users/:Username/movies/:MovieID', (req, res) => {
   Users.FindOneAndUpdate({ Username: req.params.Username }, {
     $push: { FavoriteMovies: req.params.MovieID }
   },
-  { new: true }, // This line makes sure that the updated document is returned. 
-  (err, updatedUser) => {
-    if (err) {
-      res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+  { new: true }, // This line makes sure that the updated document is returned.
+  .then((updatedUser) => {
+    res.json(updatedUser);
+  }).catch(err=> {
+    res.status(500).send('Error: ' + err);
 });
 
 app.post('/users', (req, res) => {
