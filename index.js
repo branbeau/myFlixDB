@@ -76,7 +76,7 @@ app.get('users/:Username', (req, res) => {
 });
   
 // Update user's info by username
-app.put('users/:Username', (req, res) => {
+app.put('/users/:Username', (req, res) => {
   Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
   {
     Username: req.body.Username,
