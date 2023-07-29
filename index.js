@@ -22,16 +22,15 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const cors = require('cors');
 app.use(cors());
+const { check, validationResult } = require('express-validator');
 
 let auth = require('./auth')(app);
 
 const passport = require('passport');
 require('./passport');
+//check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
-const { check, validationResult } = require('express-validator');
-
-check([field in req.body to validate], [error message if validation fails]).[validation method]();
-
+{
 //log requests to server
 app.use(morgan("common"));
 
@@ -97,16 +96,19 @@ app.put('/users/:Username', (req, res) => {
 });
 
 // Add a movie to a user's list of favorites
-app.post('/users/:Username/movies/:MovieID', (req, res) => {
-  Users.FindOneAndUpdate({ Username: req.params.Username }, {
-    $push: { FavoriteMovies: req.params.MovieID }
-  },
-  { new: true }, // This line makes sure that the updated document is returned.
+app.post('/users/:Username/movies/:MovieID', async (req, res) => {
+  await Users.findOneAndUpdate({ Username: req.params.Username }, {
+     $push: { FavoriteMovies: req.params.MovieID }
+   },
+   { new: true }) // This line makes sure that the updated document is returned
   .then((updatedUser) => {
     res.json(updatedUser);
-  }).catch(err=> {
+  })
+  .catch((err) => {
+    console.error(err);
     res.status(500).send('Error: ' + err);
-});
+  });
+}); 
 
 app.post('/users', (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
@@ -241,27 +243,26 @@ app.post('/users', (req, res) => {
       if(user) {
         return res.status(400).send(req.body.Username + 'already exists');
       } else {
-        Users.create({
+        Users
+        .create({
           Username: req.body.Username,
           Password: req.body.Password,
           Email: req.body.Email,
           Birthday: req.body.Birthday
         })
-          .then((user) => {
-            res.status(201).json(user)
-          })
+        .then((user) => { res.status(201).json(user)})
           .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error);
-          })
-        }
+          });
+      }
     })
     .catch((error => {
       console.error(error);
       res.status(500).send('Error: ' + error);
-   }));
+    });
 });
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port' + port)
 });
