@@ -1,38 +1,37 @@
-const express = require('express'),
-      bodyParser = require('body-parser'),
-      uuid = require('uuid');
-
+const express = require('express');
+const bodyParser = require('body-parser');
+const uuid = require('uuid');
 const morgan = require('morgan');
 const app = express();
-// app.use(bodyParser.urlencoded({ extended: true }));
+
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect('mongodb://localhost:27017/myFlixDB', { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true 
+mongoose.connect('mongodb://localhost:27017/myFlixDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.log('Error connecting to MongoDB:', error);
 });
 
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const cors = require('cors');
 app.use(cors());
 const { check, validationResult } = require('express-validator');
 
-let auth = require('./auth')(app);
-
 const passport = require('passport');
 require('./passport');
-//check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
-{
-//log requests to server
-app.use(morgan("common"));
+require('./auth');
+
+//check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
 //Default text response
 app.get("/", (req, res) => {
@@ -65,50 +64,60 @@ app.get('/users', (req, res) => {
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
   Users.findOne({ Username: req.params.Username })
-  .then((user) => {
-    res.json(user);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error:' + err);
-  })
+    .then((user) => {
+      if (user) {
+        res.json(user);
+      } else {
+        res.status(404).send('User not found');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error:' + err);
+    });
 });
-  
+
 // Update user's info by username
 app.put('/users/:Username', (req, res) => {
-  Users.findOneAndUpdate({ Username: req.params.Username }, { $set:
-  {
-    Username: req.body.Username,
-    Password: req.body.Password,
-    Email: req.body.Email,
-    Birthday: req.body.Birthday
-  }
-},
-{ new: true }, // This line makes sure that the updated document is returned.
-( err, updatedUser) => {
-  if(err) {
+  Users.findOneAndUpdate(
+    { Username: req.params.Username },
+    {
+      $set: {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        Email: req.body.Email,
+        Birthday: req.body.Birthday
+      }
+    },
+    { new: true } // This line makes sure that the updated document is returned.
+  )
+    .then((updatedUser) => {
+      if (updatedUser) {
+        res.json(updatedUser);
+      } else {
+        res.status(404).send('User not found');
+      }
+    })
+    .catch((err) => {
       console.error(err);
       res.status(500).send('Error: ' + err);
-    } else {
-      res.json(updatedUser);
-    }
-  });
+    });
 });
 
 // Add a movie to a user's list of favorites
 app.post('/users/:Username/movies/:MovieID', async (req, res) => {
-  await Users.findOneAndUpdate({ Username: req.params.Username }, {
-     $push: { FavoriteMovies: req.params.MovieID }
-   },
-   { new: true }) // This line makes sure that the updated document is returned
-  .then((updatedUser) => {
+  try {
+    const updatedUser = await Users.findOneAndUpdate(
+      { Username: req.params.Username },
+      { $push: { FavoriteMovies: req.params.MovieID } },
+      { new: true }
+    );
     res.json(updatedUser);
-  })
-  .catch((err) => {
+  } catch (err) {
     console.error(err);
     res.status(500).send('Error: ' + err);
-  });
-}); 
+  }
+});
 
 app.post('/users', (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
@@ -165,14 +174,15 @@ app.post('/users',
           //If the user is found, send a response that it already exists
           return res.status(400).send(req.body.Username + ' already exists');
         } else {
-          Users
-            .create({
+          Users.create({
               Username: req.body.Username,
               Password: hashedPassword,
               Email: req.body.Email,
               Birthday: req.body.Birthday
             })
-            .then((user) => { res.status(201).json(user) })
+            .then((user) => { 
+              res.status(201).json(user);
+            })
             .catch((error) => {
               console.error(error);
               res.status(500).send('Error: ' + error);
@@ -240,29 +250,29 @@ app.get("/director/:Name", (req, res) => {
 app.post('/users', (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
-      if(user) {
-        return res.status(400).send(req.body.Username + 'already exists');
+      if (user) {
+        return res.status(400).send(req.body.Username + ' already exists');
       } else {
-        Users
-        .create({
+        Users.create({
           Username: req.body.Username,
           Password: req.body.Password,
           Email: req.body.Email,
           Birthday: req.body.Birthday
         })
-        .then((user) => { res.status(201).json(user)})
+          .then((user) => { res.status(201).json(user) })
           .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error);
           });
       }
     })
-    .catch((error => {
+    .catch((error) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
     });
 });
-const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0', () => {
-  console.log('Listening on Port' + port)
+
+const port = 8080;
+app.listen(port, () => {
+  console.log("Server is running on http://localhost:8080");
 });

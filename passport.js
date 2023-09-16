@@ -18,18 +18,17 @@ passport.use(new LocalStrategy({
       return callback(null, false, {message: 'Incorrect username or password.'});
     }
 
-    if (!user.validatePassword(password)) {
-      console.log('incorrect password');
-      return callback(null, false, {message: 'Incorrect password.'});
-    }
+  if (!user.validatePassword(password)) {
+    console.log('incorrect password');
+    return callback(null, false, {message: 'Incorrect password.'});
+}
 
-    console.log('finished');
-    return callback(null, user);
-  }).catch(error => {
-  	console.log (error);
-  	return callback(error);
- });
-}));
+console.log('finished');
+return callback(null, user);
+}).catch(error => {
+  console.log('error');
+  return callback(error);
+});
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
@@ -42,4 +41,4 @@ passport.use(new JWTStrategy({
     .catch((error) => {
       return callback(error)
     });
-}));
+});
