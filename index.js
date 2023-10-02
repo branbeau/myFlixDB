@@ -122,7 +122,7 @@ app.post('/users/:Username/movies/:MovieID', async (req, res) => {
   }
 });
 
-app.post('/users', (req, res) => {
+app.post('/users', async (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
   Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
