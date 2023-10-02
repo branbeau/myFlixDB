@@ -12,7 +12,7 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb:////127.0.0.1:27017/cfDB', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -275,8 +275,8 @@ app.post('/users', (req, res) => {
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, () => {
-  console.log("Server is running on http://localhost:8080");
+app.listen(port, '0.0.0.0',() => {
+ console.log('Listening on Port ' + port);
 });
 
 module.exports = app;
