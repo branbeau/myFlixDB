@@ -13,7 +13,7 @@ const Movies = Models.Movie;
 const Users = Models.User;
 
 //mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
-mongoose.connect( process.env.CONNECTION_URI, { 
+mongoose.connect( process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
