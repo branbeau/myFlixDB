@@ -1,4 +1,4 @@
-require('dotenv').config(); // Load environment variables from .env file
+require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -12,7 +12,8 @@ const Models = require('./models.js');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
+//mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
+mongoose.connect( process.env.CONNECTION_URI, { 
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -279,4 +280,4 @@ app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
 
-module.exports = app;
+//module.exports = app;
