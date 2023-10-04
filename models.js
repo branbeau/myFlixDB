@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+
 let userSchema = mongoose.Schema({
   Username: { type: String, required: true },
   Password: { type: String, required: true },
@@ -50,6 +51,7 @@ app.post('/users', async (req, res) => {
     });
 });
 
+const passport = require('passport');
 passport.use(
   new LocalStrategy(
     {
