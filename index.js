@@ -8,6 +8,7 @@ const app = express();
 
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const movies = require('./movies.json');
 
 const Movies = Models.Movie;
 const Users = Models.User;
