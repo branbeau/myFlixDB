@@ -52,6 +52,8 @@ app.post('/users', async (req, res) => {
 });
 
 const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+
 passport.use(
   new LocalStrategy(
     {
