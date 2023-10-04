@@ -37,24 +37,20 @@ require('./auth');
 //check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
 //Default text response
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
 app.get('/movies', (req, res) => {
-  res.status(200).json(movies);
+  Movies.find()
+     .then((movies) => {
+       res.status(200).json(movies);
+     })
+     .catch((err) => {
+       console.error(err);
+       res.status(500).send("Error: " + err);
+   });
 });
-
-// app.get("/movies", (req, res) => {
-//   Movies.find()
-//     .then((movies) => {
-//       res.status(200).json(movies);
-//     })
-//     .catch((err) => {
-//       console.error(err);
-//       res.status(500).send("Error: " + err);
-//     });
-// });
 
 // Get all users
 app.get('/users', (req, res) => {
