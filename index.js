@@ -37,7 +37,7 @@ require('./auth');
 //check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
 //Default text response
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
