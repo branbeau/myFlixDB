@@ -43,13 +43,13 @@ app.get("/", (req, res) => {
 
 app.get("/movies", (req, res) => {
   Movies.find()
-     .then((movies) => {
-       res.status(200).json(movies);
-     })
-     .catch((err) => {
-       console.error(err);
-       res.status(500).send("Error: " + err);
-   });
+    .then((movies) => {
+      res.status(200).json(movies);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
+    });
 });
 
 // Get all users
