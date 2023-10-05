@@ -7,10 +7,8 @@ const morgan = require('morgan');
 const app = express();
 
 const mongoose = require('mongoose');
-const Models = require('./models/movies.json');
-
-const Movie = require('./models/movies.json');
-const Users = Models.User;
+const movieSchema = require('./models/movieSchema');
+const userSchema = require('./models/userSchema');
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
   useNewUrlParser: true,
