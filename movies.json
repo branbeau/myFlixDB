@@ -18,14 +18,14 @@
       "Description":"A poor yet passionate young man (Ryan Gosling) falls in love with a rich young woman (Rachel McAdams), giving her a sense of freedom, but they are soon separated because of their social differences.",
       "Genre": {
               "Name":"Romantic Drama",
-              "Description":"Romance films, romance movies, or ship films involve romantic love stories recorded in visual media for broadcast in theatres or on television that focus on passion, emotion, and the affectionate romantic involvement of the main characters.",
+              "Description":"Romance films, romance movies, or ship films involve romantic love stories recorded in visual media for broadcast in theatres or on television that focus on passion, emotion, and the affectionate romantic involvement of the main characters."
       },
       "Director": {
               "Name":"Nick Cassavetes",
               "Bio":"Nicholas David Rowland Cassavetes (born May 21, 1959)[1] is an American actor, director, and writer. He has directed such films as She's So Lovely (1997), John Q. (2002), The Notebook (2004), Alpha Dog (2006), and My Sister's Keeper (2009). His acting credits include an uncredited role in Husbands (1970)—which was directed by his father, John Cassavetes—as well as roles in the films The Wraith (1986), Face/Off (1997), and Blow (2001).",
               "BirthYear": 1959
       },
-      "ImageUrl":"https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i",
+      "ImageUrl":"https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i"
     },
     {
       "Title":"Titanic",
@@ -39,21 +39,21 @@
               "Bio":"James Francis Cameron CC (born August 16, 1954) is a Canadian filmmaker. A major figure in the post-New Hollywood era, he is considered one of the industry's most innovative filmmakers, regularly pushing the boundaries of cinematic capability with his use of novel technologies.",
               "BirthYear":1954
       },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Titanic_(1997_film)#/media/File:Titanic_(1997_film)_poster.png",
+      "ImageUrl":"https://en.wikipedia.org/wiki/Titanic_(1997_film)#/media/File:Titanic_(1997_film)_poster.png"
     },
     {
       "Title":"Catch Me If You Can",
       "Description":"Barely 21 yet, Frank is a skilled forger who has passed as a doctor, lawyer and pilot. FBI agent Carl becomes obsessed with tracking down the con man, who only revels in the pursuit.",
       "Genre": {
               "Name":"Crime/Drama",
-              "Description":"Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a crime.",
+              "Description":"Crime fiction, detective story, murder mystery, mystery novel, and police novel are terms used to describe narratives that centre on criminal acts and especially on the investigation, either by an amateur or a professional detective, of a crime."
       },
       "Director": {
               "Name":"Steven Spielberg",
               "Bio":"Steven Allan Spielberg born December 18, 1946) is an American film director, writer and producer.",
               "birthYear":1946
       },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Catch_Me_If_You_Can#/media/File:Catch_Me_If_You_Can_2002_movie.jpg",
+      "ImageUrl":"https://en.wikipedia.org/wiki/Catch_Me_If_You_Can#/media/File:Catch_Me_If_You_Can_2002_movie.jpg"
     },
     {
       "Title":"Ray",
@@ -67,7 +67,7 @@
               "Bio":"Taylor Edwin Hackford (born December 31, 1944) is an American film director and former president of the Directors Guild of America.",
               "birthYear":1944
       },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Ray_(film)#/media/File:Ray_poster.jpg",
+      "ImageUrl":"https://en.wikipedia.org/wiki/Ray_(film)#/media/File:Ray_poster.jpg"
     },
     {
       "Title":"The Pursuit of Happyness",
@@ -81,7 +81,7 @@
               "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
               "BirthYear":1967
       },
-      "ImageUrl":"https://www.imdb.com/title/tt0454921/",
+      "ImageUrl":"https://www.imdb.com/title/tt0454921/"
     },
     {
       "Title":"Seven Pounds",
@@ -95,21 +95,21 @@
               "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
               "BirthYear":1967 
       },
-      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i",
+      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i"
     },
     {
       "Title":"Crazy Rich Asians",
       "Description":"The story follows a Chinese-American professor who travels to meet her boyfriend's family and is surprised to discover they are among the richest in Singapore.",
       "Genre": {
               "Name":"Romantic Comedy-Drama",
-              "Description":"A subgenre of comedy and slice of life fiction, focusing on lighthearted, humorous plot lines centered on romantic ideas, such as how true love is able to surmount most obstacles.",
+              "Description":"A subgenre of comedy and slice of life fiction, focusing on lighthearted, humorous plot lines centered on romantic ideas, such as how true love is able to surmount most obstacles."
       },
       "Director": {
               "Name":"Jon M. Chu",
               "Bio":"Jonathan Murray Chu (born November 2, 1979)is an American film director, producer, and screenwriter. He is best known as the director of 2018's Crazy Rich Asians, the first film by a major Hollywood studio to feature a majority cast of Asian descent in a modern setting since The Joy Luck Club in 1993.",
               "birthYear":1979
       },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Jon_M._Chu#/media/File:Jon_M._Chu_2013.jpg",
+      "ImageUrl":"https://en.wikipedia.org/wiki/Jon_M._Chu#/media/File:Jon_M._Chu_2013.jpg"
     },
     {
       "Title":"Get Out",
@@ -123,7 +123,7 @@
               "Bio":"Jordan Haworth Peele (born February 21, 1979) is an American actor, comedian, and filmmaker. He is best known for his film and television work in the comedy and horror genres.[1][2] Peele started his career in sketch comedy before transiting his career as a writer and director of psychological horror and satirical films. In 2017, Peele was included on the annual Time 100 list of the most influential people in the world.",
               "BirthYear":1979
         },
-        "ImageUrl":"https://en.wikipedia.org/wiki/Get_Out#/media/File:Get_Out_poster.png",
+        "ImageUrl":"https://en.wikipedia.org/wiki/Get_Out#/media/File:Get_Out_poster.png"
     },
     {
       "Title":"Black Panther",
@@ -137,7 +137,6 @@
               "Bio":"Ryan Kyle Coogler (born May 23, 1986)[1] is an American filmmaker. He is a recipient of four NAACP Image Awards, four Black Reel Awards, a Golden Globe Award nomination, and two Academy Award nominations.",
               "BirthYear":1986
       },
-      "ImageUrl":"https://en.wikipedia.org/wiki/Black_Panther_(film)#/media/File:Black_Panther_(film)_poster.jpg",
-    }
-  ]
-}
+      "ImageUrl":"https://en.wikipedia.org/wiki/Black_Panther_(film)#/media/File:Black_Panther_(film)_poster.jpg"
+  }
+]
