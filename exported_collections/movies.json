@@ -13,7 +13,7 @@
       "ImageUrl":"https://en.wikipedia.org/wiki/Coming_to_America#/media/File:ComingtoAmerica1988MoviePoster.jpg"
     },
     {
-      "Title":"Notebook",
+      "Title": "Notebook",
       "Description":"A poor yet passionate young man (Ryan Gosling) falls in love with a rich young woman (Rachel McAdams), giving her a sense of freedom, but they are soon separated because of their social differences.",
       "Genre": {
               "Name":"Romantic Drama",
@@ -27,7 +27,7 @@
       "ImageUrl":"https://www.imdb.com/title/tt0332280/mediaviewer/rm1153669376/?ref_=tt_ov_i"
     },
     {
-      "Title":"Titanic",
+      "Title": "Titanic",
       "Description":"A seventeen-year-old aristocrat falls in love with a kind but poor artist aboard the luxurious, ill-fated R.M.S. Titanic.",
       "Genre": {
               "Name":"Romanctic Drama",
@@ -41,7 +41,7 @@
       "ImageUrl":"https://en.wikipedia.org/wiki/Titanic_(1997_film)#/media/File:Titanic_(1997_film)_poster.png"
     },
     {
-      "Title":"Catch Me If You Can",
+      "Title": "Catch Me If You Can",
       "Description":"Barely 21 yet, Frank is a skilled forger who has passed as a doctor, lawyer and pilot. FBI agent Carl becomes obsessed with tracking down the con man, who only revels in the pursuit.",
       "Genre": {
               "Name":"Crime/Drama",
@@ -69,7 +69,7 @@
       "ImageUrl":"https://en.wikipedia.org/wiki/Ray_(film)#/media/File:Ray_poster.jpg"
     },
     {
-      "Title":"The Pursuit of Happyness",
+      "Title": "The Pursuit of Happyness",
       "Description":"A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.",
       "Genre": {
               "Name":"Biography Drama",
@@ -83,7 +83,7 @@
       "ImageUrl":"https://www.imdb.com/title/tt0454921/"
     },
     {
-      "Title":"Seven Pounds",
+      "Title": "Seven Pounds",
       "Description":"Seven Pounds is a 2008 American drama film directed by Gabriele Muccino starring Will Smith as a man who sets out to change the lives of seven people.",
       "Genre": {
               "Name":"Drama",
@@ -97,7 +97,7 @@
       "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i"
     },
     {
-      "Title":"Crazy Rich Asians",
+      "Title": "Crazy Rich Asians",
       "Description":"The story follows a Chinese-American professor who travels to meet her boyfriend's family and is surprised to discover they are among the richest in Singapore.",
       "Genre": {
               "Name":"Romantic Comedy-Drama",
@@ -125,7 +125,7 @@
         "ImageUrl":"https://en.wikipedia.org/wiki/Get_Out#/media/File:Get_Out_poster.png"
     },
     {
-      "Title":"Black Panther",
+      "Title": "Black Panther",
       "Description":"Black Panther is a 2018 American superhero film based on the Marvel Comics character of the same name. Produced by Marvel Studios and distributed by Walt Disney Studios Motion Pictures, it is the 18th film in the Marvel Cinematic Universe (MCU).",
       "Genre": {
               "Name":"Action/Adventure",
