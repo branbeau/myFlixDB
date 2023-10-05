@@ -8,7 +8,6 @@ const app = express();
 
 const mongoose = require('mongoose');
 const Models = require('./models.js');
-const movies = require('./movies.json');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -42,7 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/movies", (req, res) => {
-  Movies.find()
+  movies.find()
     .then((movies) => {
       res.status(200).json(movies);
     })
