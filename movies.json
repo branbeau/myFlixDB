@@ -74,7 +74,7 @@
       "Description":"A struggling salesman takes custody of his son as he's poised to begin a life-changing professional career.",
       "Genre": {
               "Name":"Biography Drama",
-              "Description":"A film that dramatizes the life of a non-fictional or historically-based person or people. "
+              "Description":"A film that dramatizes the life of a non-fictional or historically-based person or people."
       },
       "Director": {
               "Name":"Gabriele Muccino",
@@ -95,7 +95,7 @@
               "Bio":"Gabriele Muccino (born 20 May 1967) is an Italian film director. He has worked his way from making short films only aired on Italian television to become a well-known and successful American filmmaker.",
               "BirthYear":1967 
       },
-      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i"
+      "ImageUrl":"https://www.imdb.com/title/tt0814314/mediaviewer/rm202347520/?ref_=tt_ov_i",
     },
     {
       "Title":"Crazy Rich Asians",
