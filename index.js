@@ -9,7 +9,7 @@ const app = express();
 const mongoose = require('mongoose');
 const Models = require('./models.js');
 
-const Movies = Models.Movie;
+const Movie = require('./models/movie')
 const Users = Models.User;
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
