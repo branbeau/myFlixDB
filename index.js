@@ -44,13 +44,14 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-// Create the Movie model using the movie schema
-const Movie = mongoose.model('Movie', movieSchema);
 
-// Require the movies collection
+// Require collections
 const movies = require('./exported_collections/movies');
 
 const users = require('./exported_collections/users');
+
+// Create the Movie model using the movie schema
+const Movie = mongoose.model('Movie', movieSchema);
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
   useNewUrlParser: true,
