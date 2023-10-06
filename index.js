@@ -46,18 +46,17 @@ const movieSchema = new mongoose.Schema({
 
 
 // Require collections
-const movies = require('./exported_collections/movies');
+const movies = require('./exported_collections/movies.json');
 
-const users = require('./exported_collections/users');
+const users = require('./exported_collections/users.json');
 
-// Create the Movie model using the movie schema
-const Movie = mongoose.model('Movie', movieSchema);
-
+const mongoose = require('mongoose');
 const mongoDBURI = process.env.MONGODB_URI;
 
 mongoose.connect(mongoDBURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
+    app.listen(process.env.PORT || 8080);
   })
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err.message);
