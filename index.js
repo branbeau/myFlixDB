@@ -4,10 +4,52 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const uuid = require('uuid');
 const morgan = require('morgan');
+const mongoose = require('mongoose');
 const app = express();
 
-const mongoose = require('mongoose');
+const movieSchema = new mongoose.Schema({
+  Title: {
+    type: String,
+    required: true
+  },
+  Description: {
+    type: String,
+    required: true
+  },
+  Genre: {
+    Name: {
+      type: String,
+      required: true
+    },
+    Description: {
+      type: String,
+      required: true
+    }
+  },
+  Director: {
+    Name: {
+      type: String,
+      required: true
+    },
+    Bio: {
+      type: String
+    },
+    BirthYear: {
+      type: Number
+    }
+  },
+  ImagePath: {
+    type: String,
+    required: true
+  }
+});
+
+// Create the Movie model using the movie schema
+const Movie = mongoose.model('Movie', movieSchema);
+
+// Require the movies collection
 const movies = require('./exported_collections/movies');
+
 const users = require('./exported_collections/users');
 
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
