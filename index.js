@@ -86,6 +86,29 @@ require('./auth');
 
 //check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
+const MongoClient = require('mongodb').MongoClient;
+
+// Connection URL
+const url = 'mongodb://localhost:27017';
+
+// Database Name
+const dbName = 'cfDB';
+
+// Create a new MongoClient
+const client = new MongoClient(url, { useNewUrlParser: true });
+
+// Use connect method to connect to the Server
+client.connect(function(err) {
+  if (err) {
+    console.log('Error connecting to database:', err);
+    return;
+  }
+
+  console.log('Connected successfully to database');
+
+  // Assign the database instance to the cfDB variable
+  const cfDB = client.db(dbName);
+
 //Default text response
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
