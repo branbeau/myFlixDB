@@ -62,12 +62,6 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
   console.log('Error connecting to MongoDB:', error);
 });
 
-// Working with the 'movies' collection
-const Movie = mongoose.model('Movie', movieSchema);
-
-// Working with the 'users' collection
-const User = mongoose.model('User', userSchema);
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
