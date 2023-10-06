@@ -53,14 +53,15 @@ const users = require('./exported_collections/users');
 // Create the Movie model using the movie schema
 const Movie = mongoose.model('Movie', movieSchema);
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/cfDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.log('Error connecting to MongoDB:', error);
-});
+const mongoDBURI = process.env.MONGODB_URI;
+
+mongoose.connect(mongoDBURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err.message);
+  });
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
