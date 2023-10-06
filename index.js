@@ -44,6 +44,19 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
+// Define the movies collection
+const moviesCollection = cfDB.movies('movies');
+
+// Use the find() function to query the collection
+moviesCollection.find({})
+  .toArray()
+  .then((movies) => {
+    res.status(200).json(movies);
+  })
+  .catch((err) => {
+    console.error(err);
+    res.status(500).send('Error: ' + err);
+  });
 
 // Require collections
 const movies = require('./exported_collections/movies.json');
