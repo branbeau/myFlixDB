@@ -67,20 +67,12 @@ const client = new MongoClient(url, options);
 client.connect()
   .then((client) => {
     const db = client.db(dbName);
-    moviesCollection = db.collection('movies');
-    console.log('Connected to the database');
-  })
-  .catch((error) => {
-    console.error('Failed to connect to the database:', error);
-  });
+    const moviesCollection = db.collection('movies'); // Initialize the 'moviesCollection' variable here
+    console.log('Connection to database successful');
 
-const newMovie = { title: 'Example Movie' };
-moviesCollection.insertOne(newMovie)
-  .then(() => {
-    console.log('Movie inserted successfully');
   })
-  .catch((error) => {
-    console.error('Failed to insert movie:', error);
+  .catch((err) => {
+    console.log('Error connecting to database', err);
   });
 
 app.get("/", (req, res) => {
