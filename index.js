@@ -85,7 +85,7 @@ const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
 const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log("Connected to MongoDB");
   })
