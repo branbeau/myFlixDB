@@ -90,8 +90,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-const movies = require('./exported_collections/movies.json');
-const users = require('./exported_collections/users.json');
+const moviesCollection = require('./exported_collections/movies.json');
+const usersCollection = require('./exported_collections/users.json');
 
 app.get('/movies', (req, res) => {
   moviesCollection.find({}).toArray()
@@ -106,7 +106,7 @@ app.get('/movies', (req, res) => {
 
 const options = { maxTimeMS: 20000 }; // Increase the timeout to 20 seconds (20000 milliseconds)
 
-Movies.find({}, options).toArray((err, data) => {
+moviesCollection.find({}, options).toArray((err, data) => {
   if (err) {
     console.error(err);
     // Handle the error
