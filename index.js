@@ -91,21 +91,21 @@ MongoClient.connect(url, {
     }
     console.log('Connected successfully to the server');
     const db = client.db(dbName);
-}); 
+
     // Define movies collection as cfDB.movies
     const cfDB = {
         movies: db.collection('movies')
     };
 
-// Access the movies collection and fetch all documents
-moviesCollection.find({}, (err, movies) => {
-  if (err) {
-    console.log(err);
-    return;
-  }
-  console.log(movies);
+    // Access the movies collection and fetch all documents
+    cfDB.movies.find({}, (err, movies) => {
+        if (err) {
+            console.log(err);
+            return;
+        }
+        console.log(movies);
+    });
 });
-
 // Use the find() function to query the collection
 moviesCollection.find({})
   .toArray()
