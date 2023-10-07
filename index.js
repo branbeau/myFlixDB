@@ -74,10 +74,6 @@ client.connect()
   .catch((error) => {
     console.error(error);
   });
-
-    // Access the 'movies' collection using the 'db' reference
-    const moviesCollection = db.collection('movies');
-
     // Example: Insert a document into the 'movies' collection
     const newMovie = { title: 'Example Movie' };
     moviesCollection.insertOne(newMovie)
