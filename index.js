@@ -61,7 +61,6 @@ MongoClient.connect(url, function(err, client) {
 
   // Access the desired database
 const db = client.db('cfDB');
-
 // Define the movies collection
 const moviesCollection = db.collection('movies');
 });
@@ -348,5 +347,3 @@ const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
  console.log('Listening on Port ' + port);
 });
-
-})
