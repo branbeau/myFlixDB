@@ -71,18 +71,6 @@ client.connect((err) => {
     return;
   }
 
-  // Initialize the moviesCollection variable
-  const moviesCollection = client.db().collection('movies');
-
-  moviesCollection.find({}).toArray((err, data) => {
-  if (err) {
-    console.error(err);
-    // Handle the error
-  } else {
-    // Process the data returned by the find operation
-  }
-});
-
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
