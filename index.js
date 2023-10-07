@@ -92,7 +92,7 @@ app.get("/", (req, res) => {
 
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
-    
+
 app.get('/movies', (req, res) => {
   moviesCollection.find({}).toArray()
     .then((movies) => {
@@ -100,8 +100,19 @@ app.get('/movies', (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.sendStatus(500); 
+      res.sendStatus(500);
     });
+});
+
+const options = { maxTimeMS: 20000 }; // Increase the timeout to 20 seconds (20000 milliseconds)
+
+Movies.find({}, options).toArray((err, data) => {
+  if (err) {
+    console.error(err);
+    // Handle the error
+  } else {
+    // Process the data returned by the find operation
+  }
 });
 
 app.get('/users', (req, res) => {
