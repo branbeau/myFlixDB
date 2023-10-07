@@ -67,43 +67,26 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
 client.connect()
-  .then(() => {
-    // Code to run after connecting to the database
+  .then((client) => {
+    // Get a reference to the database
+    const db = client.db(dbName);
+
+    // Access the 'movies' collection using the 'db' reference
+    const moviesCollection = db.collection('movies');
+
+    // Example: Insert a document into the 'movies' collection
+    const newMovie = { title: 'Example Movie' };
+    moviesCollection.insertOne(newMovie)
+      .then(() => {
+        console.log('Movie inserted successfully');
+      })
+      .catch((error) => {
+        console.error('Failed to insert movie:', error);
+      });
   })
   .catch((error) => {
     console.error(error);
   });
-
-    // Define movies collection as db.collection('movies')
-    const cfDB = {
-      movies: db.collection('movies')
-    };
-
-    cfDB.movies.find({}, (err, movies) => {
-      if (err) {
-        console.log(err);
-        return;
-      }
-      console.log(movies);
-    });
-
-    app.get("/", (req, res) => {
-      res.send("Welcome to MyFlix!");
-    });
-
-    const movies = require('./exported_collections/movies.json');
-    const users = require('./exported_collections/users.json');
-  
-    app.get('/movies', (req, res) => {
-      moviesCollection.find({}).toArray()
-        .then((movies) => {
-          res.json(movies);
-        })
-        .catch((err) => {
-          console.log(err);
-          res.sendStatus(500); 
-        });
-    });
 
     app.get('/users', (req, res) => {
       usersCollection.find({}).toArray()
