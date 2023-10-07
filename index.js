@@ -7,6 +7,8 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 
+const auth = require('./auth');
+
 // Create express app
 const app = express();
 
@@ -16,9 +18,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(passport.initialize());
-
-const passport = require('./passport');
-const auth = require('./auth');
 
 auth(app, passport);
 
