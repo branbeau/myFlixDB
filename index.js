@@ -103,15 +103,6 @@ app.get('/movies', (req, res) => {
     });
 });
 
-moviesCollection.find({}).toArray((err, data) => {
-  if (err) {
-    console.error(err);
-    // Handle the error
-  } else {
-    // Process the data returned by the find operation
-  }
-});
-
 app.get('/users', (req, res) => {
   usersCollection.find({}).toArray()
     .then((users) => {
