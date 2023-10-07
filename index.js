@@ -110,11 +110,6 @@ require('./auth');
 
 //check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
-const MongoClient = require('mongodb').MongoClient;
-
-// Connection URL
-const url = 'mongodb://localhost:27017';
-
 //Default text response
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
