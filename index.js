@@ -74,15 +74,13 @@ client.connect((err) => {
   // Initialize the moviesCollection variable
   const moviesCollection = client.db().collection('movies');
 
-  // Now the moviesCollection for find operations can be used
-  moviesCollection.find({}, options).toArray((err, data) => {
-    if (err) {
-      console.error(err);
-      // Handle the error
-    } else {
-      // Process the data returned by the find operation
-    }
-  });
+  moviesCollection.find({}).toArray((err, data) => {
+  if (err) {
+    console.error(err);
+    // Handle the error
+  } else {
+    // Process the data returned by the find operation
+  }
 });
 
 app.get("/", (req, res) => {
