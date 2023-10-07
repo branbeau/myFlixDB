@@ -59,10 +59,19 @@ MongoClient.connect(url, function(err, client) {
   }
   console.log('Connected successfully to the server');
 
-  // Access the desired database
+// Access the desired database
 const db = client.db('cfDB');
-// Define the movies collection
+
+// Define movies collection
 const moviesCollection = db.collection('movies');
+
+// Access the movies collection and fetch all documents
+moviesCollection.find({}, (err, movies) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(movies);
 });
 
 // Use the find() function to query the collection
