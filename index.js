@@ -60,7 +60,11 @@ const dbName = 'cfDB';
 const { MongoClient } = require('mongodb');
 
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
-const options = { useNewUrlParser: true, useUnifiedTopology: true }, { maxTimeMS: 20000 }; // Increase the timeout to 20 seconds (20000 milliseconds)
+const options = { 
+  useNewUrlParser: true, 
+  useUnifiedTopology: true,
+  maxTimeMS: 20000 // Move maxTimeMS option inside the options object
+};
 
 const client = new MongoClient(url, options);
 
