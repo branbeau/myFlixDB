@@ -62,10 +62,10 @@ const movieSchema = new mongoose.Schema({
 const { MongoClient } = require('mongodb');
 
 const dbName = 'cfDB';
-const url = process.env.CONNECTION_URI || mongodb:'//127.0.0.1:27017/${dbName}';
-const uri = url;
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
+const client = new MongoClient(url, options);
 client.connect()
   .then(() => {
     // Code to run after connecting to the database
