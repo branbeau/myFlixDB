@@ -66,6 +66,7 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, fu
     return;
   }
   console.log('Connected successfully to the server');
+});
 
 const db = client.db('cfDB');
 
