@@ -77,28 +77,23 @@ client.connect()
       movies: client.db(dbName).collection('movies')
     };
 
-    // Rest of your code here...
+    // Use the cfDB.movies collection here
+    cfDB.movies.find({}).toArray()
+      .then(movies => {
+        console.log('Movies:', movies);
+
+        // Close the database connection
+        client.close();
+      })
+      .catch(err => {
+        console.error('Error finding movies:', err);
+
+        // Close the database connection
+        client.close();
+      });
   })
   .catch((error) => {
     console.error('Error connecting to MongoDB:', error);
-  });
-
-// Use the cfDB.movies collection here
-cfDB.movies.find({}).toArray()
-  .then(movies => {
-    console.log('Movies:', movies);
-
-    // Close the database connection
-    client.close();
-  })
-  .catch(err => {
-    console.error('Error finding movies:', err);
-
-    // Close the database connection
-    client.close();
-  })
-  .catch(err => {
-    console.error('Error connecting to MongoDB:', err);
     client.close();
   });
 
