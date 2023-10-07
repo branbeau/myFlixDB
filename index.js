@@ -58,9 +58,6 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-// Require database library for MongoDB
-const { MongoClient } = require('mongodb');
-
 const dbName = 'cfDB';
 const { MongoClient } = require('mongodb');
 
