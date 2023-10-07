@@ -51,9 +51,6 @@ const url = 'mongodb://https://myflixapp-56b818d4e5ca.herokuapp.com:27017';
 
 const dbName = 'cfDB';
 
-// Create a new MongoClient
-const client = new MongoClient(url, { useUnifiedTopology: true });
-
 // Connect to the server
 client.connect(function(err) {
   if (err) {
