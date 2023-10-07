@@ -45,7 +45,29 @@ const movieSchema = new mongoose.Schema({
 });
 
 const dbName = 'cfDB';
-const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB';
+const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
+
+// Require database library for MongoDB
+const { MongoClient } = require('mongodb');
+
+// Set up the connection URI and instantiate a new MongoClient
+const uri = url;
+const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+// Connect to the MongoDB database
+client.connect(function(err) {
+  if (err) {
+    console.error('Error connecting to MongoDB:', err);
+    return;
+  }
+
+  console.log('Connected to MongoDB successfully');
+
+  // Now that the database connection is established, you can define the cfDB object
+  const cfDB = {
+    movies: client.db(dbName).collection('movies')
+  };
+});
 
 // Connect to MongoDB using mongoose
 mongoose.connect(url, {
