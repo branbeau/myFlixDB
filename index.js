@@ -62,11 +62,10 @@ const movieSchema = new mongoose.Schema({
 const { MongoClient } = require('mongodb');
 
 const dbName = 'cfDB';
-const url = process.env.CONNECTION_URI || `mongodb://127.0.0.1:27017/${dbName}`;
+const url = process.env.CONNECTION_URI || mongodb://127.0.0.1:27017/${dbName};
 const uri = url;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Connect to the MongoDB database
 client.connect()
   .then(() => {
     // Code to run after connecting to the database
@@ -74,12 +73,6 @@ client.connect()
   .catch((error) => {
     console.error(error);
   });
-
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
-  .then(() => {
-    console.log('Connected to MongoDB');
-
-    const db = mongoose.connection;
 
     // Define movies collection as db.collection('movies')
     const cfDB = {
