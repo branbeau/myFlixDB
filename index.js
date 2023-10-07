@@ -62,7 +62,7 @@ const movieSchema = new mongoose.Schema({
 const { MongoClient } = require('mongodb');
 
 const dbName = 'cfDB';
-const url = process.env.CONNECTION_URI || mongodb://127.0.0.1:27017/${dbName};
+const url = process.env.CONNECTION_URI || mongodb:'//127.0.0.1:27017/${dbName}';
 const uri = url;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
