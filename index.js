@@ -12,8 +12,6 @@ const auth = require('./auth');
 // Create express app
 const app = express();
 
-const moviesCollection = mongoose.connection.collection('movies');
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
