@@ -64,16 +64,26 @@ const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
 
-client.connect()
-  .then((client) => {
-    const db = client.db(dbName);
-    const moviesCollection = db.collection('movies'); // Initialize the 'moviesCollection' variable here
-    console.log('Connection to database successful');
+// Connect to the MongoDB server
+client.connect((err) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
 
-  })
-  .catch((err) => {
-    console.log('Error connecting to database', err);
+  // Initialize the moviesCollection variable
+  const moviesCollection = client.db().collection('movies');
+
+  // Now the moviesCollection for find operations can be used
+  moviesCollection.find({}, options).toArray((err, data) => {
+    if (err) {
+      console.error(err);
+      // Handle the error
+    } else {
+      // Process the data returned by the find operation
+    }
   });
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
@@ -101,6 +111,8 @@ moviesCollection.find({}, options).toArray((err, data) => {
     // Process the data returned by the find operation
   }
 });
+
+
 
 app.get('/users', (req, res) => {
   usersCollection.find({}).toArray()
