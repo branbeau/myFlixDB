@@ -348,7 +348,8 @@ app.post('/users', (req, res) => {
     });
 });
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 127.0.0.1;
 app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port)
+ console.log('Listening on Port ' + port);
 });
+
