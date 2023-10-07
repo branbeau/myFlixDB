@@ -72,7 +72,7 @@ MongoClient.connect(url, {
     }
     console.log('Connected successfully to the server');
     const db = client.db(dbName);
-
+}); 
     // Define movies collection as cfDB.movies
     const cfDB = {
         movies: db.collection('movies')
