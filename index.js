@@ -2,9 +2,9 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
+
 const app = express();
 
 const movieSchema = new mongoose.Schema({
@@ -352,7 +352,7 @@ app.post('/users', (req, res) => {
     });
 });
 
-const port = process.env.PORT || 27017;
+const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
 });
