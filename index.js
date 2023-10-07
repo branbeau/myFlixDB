@@ -145,21 +145,19 @@ app.get("/", (req, res) => {
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
-const MONGODB_URI = process.env.MONGODB_URI;
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
-  .then(() => {
-    console.log("Connected to MongoDB");
-    moviesCollection.find({}).toArray().then((movies) => {
-      res.status(200).json(movies);
+app.get('/movies', (req, res) => {
+  const MONGODB_URI = process.env.MONGODB_URI;
+  mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+    .then(() => {
+      console.log("Connected to MongoDB");
+      moviesCollection.find({}).toArray().then((movies) => {
+        res.status(200).json(movies);
+      });
+    })
+    .catch((error) => {
+      console.error("Error connecting to MongoDB", error);
+      res.status(500).send('Error: ' + error);
     });
-  })
-  .catch((error) => {
-    console.error("Error connecting to MongoDB", error);
-    res.status(500).send('Error: ' + error);
-  });
-
-app.listen(3000, () => {
-  console.log('MyFlix app listening on port 3000!');
 });
 
 // Get all users
