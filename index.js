@@ -67,9 +67,7 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, fu
   }
   console.log('Connected successfully to the server');
 
-  // Access the desired database
-  const db = client.db(dbName);
-});
+const db = client.db('cfDB');
 
 // Define movies collection
 const moviesCollection = db.collection('movies');
