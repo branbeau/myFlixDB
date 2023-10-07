@@ -1,11 +1,11 @@
 require('dotenv').config();
 
+const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
-const mongoose = require('mongoose');
-
-const app = express();
+const cors = require('cors');
+const { check, validationResult } = require('express-validator');
+const passport = require('passport');
 
 const movieSchema = new mongoose.Schema({
   Title: {
@@ -87,7 +87,6 @@ moviesCollection.find({})
 
 // Require collections
 const movies = require('./exported_collections/movies.json');
-
 const users = require('./exported_collections/users.json');
 
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -99,19 +98,15 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
     console.error("Error connecting to MongoDB", error);
   });
 
+const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-
-const cors = require('cors');
 app.use(cors());
-const { check, validationResult } = require('express-validator');
-
-const passport = require('passport');
+app.use(passport.initialize());
 require('./passport');
 
 require('./auth');
-
-//check('Username', 'Username contains non-alphanumeric characters - not allowed.').isAlphanumeric();
 
 //Default text response
 app.get("/", (req, res) => {
@@ -355,3 +350,4 @@ app.post('/users', (req, res) => {
 const port = process.env.PORT || 8080;
 app.listen(port, '0.0.0.0',() => {
   console.log('Listening on Port ' + port);
+});
