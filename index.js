@@ -324,7 +324,7 @@ app.get("/director/:Name", (req, res) => {
     .catch((err) => {
       console.error(err);
     });
-  });
+});
 
 //Allow users to register and deregister
 app.post('/users', (req, res) => {
