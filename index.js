@@ -47,14 +47,6 @@ const movieSchema = new mongoose.Schema({
 // Database Name
 const dbName = 'cfDB';
 
-// Use connect method to connect to the Server
-client.connect(function(err) {
-  if (err) {
-    console.log('Error connecting to database:', err);
-    return;
-  }
-  console.log('Connected successfully to database');
-
   // Assign the database instance to the cfDB variable
 const cfDB = client.db(dbName);
 
