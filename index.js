@@ -81,9 +81,6 @@ mongoose.connect(url, {
     console.log('Error connecting to MongoDB:', error);
 });
 
-/// Connect to the server using MongoClient
-const MongoClient = require('mongodb').MongoClient;
-
 MongoClient.connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true
