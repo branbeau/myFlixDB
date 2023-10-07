@@ -59,7 +59,7 @@ const movieSchema = new mongoose.Schema({
 const dbName = 'cfDB';
 const { MongoClient } = require('mongodb');
 
-const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
+const url = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
@@ -74,7 +74,6 @@ client.connect()
     console.error('Failed to connect to the database:', error);
   });
 
-// Example: Insert a document into the 'movies' collection
 const newMovie = { title: 'Example Movie' };
 moviesCollection.insertOne(newMovie)
   .then(() => {
