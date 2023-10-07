@@ -6,7 +6,6 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
-const { MongoClient } = require('mongodb');
 
 const movieSchema = new mongoose.Schema({
   Title: {
@@ -48,25 +47,35 @@ const movieSchema = new mongoose.Schema({
 // Connection URL for MongoDB
 const url = 'mongodb://127.0.0.1:27017'; 
 
-mongoose.connect( process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((error) => {
-  console.log('Error connecting to MongoDB:', error);
+const dbName = 'cfDB';
+const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB';
+
+// Connect to MongoDB using mongoose
+mongoose.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+.then(() => {
+    console.log('Connected to MongoDB');
+})
+.catch((error) => {
+    console.log('Error connecting to MongoDB:', error);
 });
 
-const dbName = 'cfDB';
-const db = client.db('cfDB');
+// Connect to the server using MongoClient
+const MongoClient = require('mongodb').MongoClient;
 
-// Connect to the server
-MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) { 
-  if (err) {
-    console.error('Error connecting to MongoDB:', err);
-    return;
-  }
-  console.log('Connected successfully to the server');
+MongoClient.connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}, function(err, client) {
+    if (err) {
+        console.error('Error connecting to MongoDB:', err);
+        return;
+    }
+    console.log('Connected successfully to the server');
+    const db = client.db(dbName);
+    // Continue with your code here
 });
 
 // Define movies collection
