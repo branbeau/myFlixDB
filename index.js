@@ -59,7 +59,7 @@ mongoose.connect(url, {
     console.log('Error connecting to MongoDB:', error);
 });
 
-// Connect to the server using MongoClient
+/// Connect to the server using MongoClient
 const MongoClient = require('mongodb').MongoClient;
 
 MongoClient.connect(url, {
@@ -72,11 +72,11 @@ MongoClient.connect(url, {
     }
     console.log('Connected successfully to the server');
     const db = client.db(dbName);
-    // Continue with your code here
-});
 
-// Define movies collection
-const moviesCollection = db.collection('movies');
+    // Define movies collection as cfDB.movies
+    const cfDB = {
+        movies: db.collection('movies')
+    };
 
 // Access the movies collection and fetch all documents
 moviesCollection.find({}, (err, movies) => {
