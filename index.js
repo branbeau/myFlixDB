@@ -47,12 +47,12 @@ const movieSchema = new mongoose.Schema({
 const MongoClient = require('mongodb').MongoClient;
 
 // Connection URL for your specific MongoDB instance
-const url = 'mongodb://https://myflixapp-56b818d4e5ca.herokuapp.com:27017';
+const url = 'mongodb://myflixapp-56b818d4e5ca.herokuapp.com:27017'; 
 
 const dbName = 'cfDB';
 
 // Connect to the server
-client.connect(function(err) {
+MongoClient.connect(url, function(err, client) { 
   if (err) {
     console.error('Error connecting to MongoDB:', err);
     return;
