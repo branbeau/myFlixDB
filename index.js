@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
+const { MongoClient } = require('mongodb');
 
 const movieSchema = new mongoose.Schema({
   Title: {
@@ -43,9 +44,6 @@ const movieSchema = new mongoose.Schema({
     required: true
   }
 });
-
-const mongoose = require('mongoose');
-const { MongoClient } = require('mongodb');
 
 // Connection URL for MongoDB
 const url = 'mongodb://127.0.0.1:27017'; 
