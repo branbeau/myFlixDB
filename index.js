@@ -65,7 +65,6 @@ const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
-let moviesCollection;
 
 client.connect()
   .then((client) => {
