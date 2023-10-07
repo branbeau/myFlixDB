@@ -101,7 +101,7 @@ client.connect()
         })
         .catch((err) => {
           console.log(err);
-          res.sendStatus(500); // Or any other appropriate error status code
+          res.sendStatus(500); 
         });
     });
 
@@ -112,13 +112,9 @@ client.connect()
         })
         .catch((err) => {
           console.log(err);
-          res.sendStatus(500); // Or any other appropriate error status code
+          res.sendStatus(500); 
         });
     });
-  })
-  .catch((err) => {
-    console.log(err);
-  });
 
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
