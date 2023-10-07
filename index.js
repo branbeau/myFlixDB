@@ -49,7 +49,6 @@ const MongoClient = require('mongodb').MongoClient;
 // Connection URL for your specific MongoDB instance
 const url = 'mongodb://https://myflixapp-56b818d4e5ca.herokuapp.com:27017';
 
-// Name of connecting database
 const dbName = 'cfDB';
 
 // Create a new MongoClient
@@ -62,10 +61,12 @@ client.connect(function(err) {
     return;
   }
   console.log('Connected successfully to the server');
-});
+
+  // Access the desired database
+  const db = client.db(dbName);
 
 // Define the movies collection
-const moviesCollection = cfDB.movies('movies');
+const moviesCollection = db.collection('movies');
 
 // Use the find() function to query the collection
 moviesCollection.find({})
