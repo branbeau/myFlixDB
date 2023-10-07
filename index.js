@@ -44,11 +44,29 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-// Database Name
+const MongoClient = require('mongodb').MongoClient;
+
+// Connection URL for your specific MongoDB instance
+const url = 'mongodb://https://myflixapp-56b818d4e5ca.herokuapp.com:27017';
+
+// Name of connecting database
 const dbName = 'cfDB';
 
+// Create a new MongoClient
+const client = new MongoClient(url, { useUnifiedTopology: true });
+
+// Connect to the server
+client.connect(function(err) {
+  if (err) {
+    console.error('Error connecting to MongoDB:', err);
+    return;
+  }
+
+  console.log('Connected successfully to the server');
+
   // Assign the database instance to the cfDB variable
-const cfDB = client.db(dbName);
+  const cfDB = client.db(dbName);
+});
 
 // Define the movies collection
 const moviesCollection = cfDB.movies('movies');
