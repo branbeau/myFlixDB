@@ -72,23 +72,19 @@ client.connect()
   .then(() => {
    const mongoose = require('mongoose');
 
-// Replace the following line with your MongoDB connection string
 const MONGODB_URI = process.env.MONGODB_URI;
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log('Connected to MongoDB');
 
-    // Continue with the rest of your code here
-    console.log('Connected successfully to the server');
-    const db = client.db(dbName);
+    const db = mongoose.connection;
 
-    // Define movies collection as cfDB.movies
+    // Define movies collection as db.collection('movies')
     const cfDB = {
       movies: db.collection('movies')
     };
 
-    // Access the movies collection and fetch all documents
     cfDB.movies.find({}, (err, movies) => {
       if (err) {
         console.log(err);
@@ -97,15 +93,13 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
       console.log(movies);
     });
 
-    // Rest of your code...
     app.get("/", (req, res) => {
       res.send("Welcome to MyFlix!");
     });
 
-    // Require collections
     const movies = require('./exported_collections/movies.json');
     const users = require('./exported_collections/users.json');
-
+  
     app.get('/movies', (req, res) => {
       moviesCollection.find({}).toArray()
         .then((movies) => {
