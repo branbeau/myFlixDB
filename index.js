@@ -6,6 +6,8 @@ const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
+const MongoClient = require('mongodb').MongoClient;
+
 
 const movieSchema = new mongoose.Schema({
   Title: {
