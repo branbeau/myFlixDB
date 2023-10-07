@@ -55,19 +55,34 @@ const uri = url;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
 // Connect to the MongoDB database
-client.connect(function(err) {
-  if (err) {
+client.connect()
+  .then(() => {
+    console.log('Connected to MongoDB successfully');
+
+    // Define the cfDB object with the movies collection
+    const cfDB = {
+      movies: client.db(dbName).collection('movies')
+    };
+
+    // Use the cfDB.movies collection here
+    cfDB.movies.find({}).toArray()
+      .then(movies => {
+        console.log('Movies:', movies);
+
+        // Close the database connection
+        client.close();
+      })
+      .catch(err => {
+        console.error('Error finding movies:', err);
+
+        // Close the database connection
+        client.close();
+      });
+  })
+  .catch(err => {
     console.error('Error connecting to MongoDB:', err);
-    return;
-  }
-
-  console.log('Connected to MongoDB successfully');
-
-  // Once the database connection is established, define the cfDB object
-  const cfDB = {
-    movies: client.db(dbName).collection('movies')
-  };
-});
+    client.close();
+  });
 
 // Connect to MongoDB using mongoose
 mongoose.connect(url, {
