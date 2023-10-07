@@ -70,101 +70,67 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 // Connect to the MongoDB database
 client.connect()
   .then(() => {
-    console.log('Connected to MongoDB successfully');
+   const mongoose = require('mongoose');
 
-    // Define the cfDB object with the movies collection
+// Replace the following line with your MongoDB connection string
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+
+    // Continue with the rest of your code here
+    console.log('Connected successfully to the server');
+    const db = client.db(dbName);
+
+    // Define movies collection as cfDB.movies
     const cfDB = {
-      movies: client.db(dbName).collection('movies')
+      movies: db.collection('movies')
     };
 
-    // Use the cfDB.movies collection here
-    cfDB.movies.find({}).toArray()
-      .then(movies => {
-        console.log('Movies:', movies);
-
-        // Close the database connection
-        client.close();
-      })
-      .catch(err => {
-        console.error('Error finding movies:', err);
-
-        // Close the database connection
-        client.close();
-      });
-  })
-  .catch((error) => {
-    console.error('Error connecting to MongoDB:', error);
-    client.close();
-  });
-
-// Connect to MongoDB using mongoose
-mongoose.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-.then(() => {
-    console.log('Connected to MongoDB');
-})
-.catch((error) => {
-    console.log('Error connecting to MongoDB:', error);
-});
-
-MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, function(err, client) {
-    if (err) {
-        console.error('Error connecting to MongoDB:', err);
+    // Access the movies collection and fetch all documents
+    cfDB.movies.find({}, (err, movies) => {
+      if (err) {
+        console.log(err);
         return;
-    }
-console.log('Connected successfully to the server');
-const db = client.db(dbName);
+      }
+      console.log(movies);
+    });
 
-// Define movies collection as cfDB.movies
-const cfDB = {
-  movies: db.collection('movies')
-};
+    // Rest of your code...
+    app.get("/", (req, res) => {
+      res.send("Welcome to MyFlix!");
+    });
 
-// Access the movies collection and fetch all documents
-cfDB.movies.find({}, (err, movies) => {
-  if (err) {
+    // Require collections
+    const movies = require('./exported_collections/movies.json');
+    const users = require('./exported_collections/users.json');
+
+    app.get('/movies', (req, res) => {
+      moviesCollection.find({}).toArray()
+        .then((movies) => {
+          res.json(movies);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(500); // Or any other appropriate error status code
+        });
+    });
+
+    app.get('/users', (req, res) => {
+      usersCollection.find({}).toArray()
+        .then((users) => {
+          res.json(users);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.sendStatus(500); // Or any other appropriate error status code
+        });
+    });
+  })
+  .catch((err) => {
     console.log(err);
-    return;
-  }
-  console.log(movies);
-});
-
-app.get("/", (req, res) => {
-  res.send("Welcome to MyFlix!");
-});
-
-// Require collections
-const movies = require('./exported_collections/movies.json');
-const users = require('./exported_collections/users.json');
-
-// Assuming you have defined and initialized moviesCollection
-app.get('/movies', (req, res) => {
-  moviesCollection.find({}).toArray()
-    .then((movies) => {
-      res.json(movies);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500); 
-    });
-});
-
-// Assuming you have defined and initialized usersCollection
-app.get('/users', (req, res) => {
-  usersCollection.find({}).toArray()
-    .then((users) => {
-      res.json(users);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500); // Or any other appropriate error status code
-    });
-});
+  });
 
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
