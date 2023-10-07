@@ -82,10 +82,9 @@ client.connect()
       })
       .catch((error) => {
         console.error('Failed to insert movie:', error);
-      });
-  })
-  .catch((error) => {
-    console.error(error);
+      })
+      .catch((error) => {
+      console.error(error);
   });
 
     app.get('/users', (req, res) => {
