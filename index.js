@@ -7,6 +7,20 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 
+// Create express app
+const app = express();
+
+const moviesCollection = mongoose.connection.collection('movies');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use(passport.initialize());
+
+// Require passport and auth files
+require('./passport')(passport);
+require('./auth')(app, passport);
+
 const movieSchema = new mongoose.Schema({
   Title: {
     type: String,
@@ -122,17 +136,10 @@ MongoClient.connect(url, {
     });
 });
 
-const moviesCollection = cfDB.db.collection('movies');
-
-moviesCollection.find({})
-  .toArray()
-  .then((movies) => {
-    res.status(200).json(movies);
-  })
-  .catch((err) => {
-    console.error(err);
-    res.status(500).send('Error: ' + err);
-  });
+// Default text response
+app.get("/", (req, res) => {
+  res.send("Welcome to MyFlix!");
+});
 
 // Require collections
 const movies = require('./exported_collections/movies.json');
@@ -142,51 +149,18 @@ const MONGODB_URI = process.env.MONGODB_URI;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
   .then(() => {
     console.log("Connected to MongoDB");
+    moviesCollection.find({}).toArray().then((movies) => {
+      res.status(200).json(movies);
+    });
   })
   .catch((error) => {
     console.error("Error connecting to MongoDB", error);
+    res.status(500).send('Error: ' + error);
   });
 
-const app = express();
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use(passport.initialize());
-require('./passport');
-
-require('./auth');
-
-//Default text response
-app.get("/", (req, res) => {
-  res.send("Welcome to MyFlix!");
+app.listen(3000, () => {
+  console.log('MyFlix app listening on port 3000!');
 });
-
-app.get('/movies', (req, res) => {
-  client.connect((err) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-      return;
-    }
-
-    const db = client.db('databaseName');
-    const moviesCollection = db.collection('movies');
-
-    moviesCollection.find().toArray()
-      .then((movies) => {
-        res.status(200).json(movies);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send('Error: ' + err);
-      })
-      .finally(() => {
-        client.close();
-      });
-  });
-});
-
 
 // Get all users
 app.get('/users', (req, res) => {
