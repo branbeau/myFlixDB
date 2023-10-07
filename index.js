@@ -44,9 +44,7 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-const MongoClient = require('mongodb').MongoClient;
-
-// Connection URL for your specific MongoDB instance
+// Connection URL for MongoDB
 const url = 'mongodb://myflixapp-56b818d4e5ca.herokuapp.com:27017'; 
 
 const dbName = 'cfDB';
@@ -59,16 +57,6 @@ const options = {
   serverSelectionTimeoutMS: 60000, // Increase timeout to 60 seconds
 };
 
-// Connect to MongoDB
-MongoClient.connect(connectionUrl, options, (err, client) => {
-  if (err) {
-    console.error('Error connecting to MongoDB:', err);
-    return;
-  }
-
-  console.log('Connected to MongoDB!');
-});
-
 // Connect to the server
 MongoClient.connect(url, function(err, client) { 
   if (err) {
@@ -77,8 +65,8 @@ MongoClient.connect(url, function(err, client) {
   }
   console.log('Connected successfully to the server');
 
-  // Access the desired database
-  const db = client.db(dbName);
+// Access the desired database
+const db = client.db(dbName);
 
 // Define the movies collection
 const moviesCollection = db.collection('movies');
