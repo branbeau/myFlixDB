@@ -70,6 +70,7 @@ client.connect((err) => {
     console.error(err);
     return;
   }
+});
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
