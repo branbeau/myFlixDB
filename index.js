@@ -17,9 +17,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(passport.initialize());
 
-// Require passport and auth files
-require('./passport')(passport);
-require('./auth')(app, passport);
+const passport = require('./passport');
+const auth = require('./auth');
+
+auth(app, passport);
 
 const movieSchema = new mongoose.Schema({
   Title: {
