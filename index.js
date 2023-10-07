@@ -60,11 +60,7 @@ const dbName = 'cfDB';
 const { MongoClient } = require('mongodb');
 
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
-const options = { 
-  useNewUrlParser: true, 
-  useUnifiedTopology: true,
-  maxTimeMS: 20000 // Move maxTimeMS option inside the options object
-};
+const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
 
