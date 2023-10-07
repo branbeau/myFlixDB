@@ -62,31 +62,41 @@ const movieSchema = new mongoose.Schema({
 const { MongoClient } = require('mongodb');
 
 const dbName = 'cfDB';
+const { MongoClient } = require('mongodb');
+
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
+let moviesCollection;
+
 client.connect()
   .then((client) => {
     const db = client.db(dbName);
-    const moviesCollection = db.collection('movies');
+    moviesCollection = db.collection('movies');
+    console.log('Connected to the database');
   })
   .catch((error) => {
-    console.error(error);
-  });
-    // Example: Insert a document into the 'movies' collection
-    const newMovie = { title: 'Example Movie' };
-    moviesCollection.insertOne(newMovie)
-      .then(() => {
-        console.log('Movie inserted successfully');
-      })
-      .catch((error) => {
-        console.error('Failed to insert movie:', error);
-      })
-      .catch((error) => {
-      console.error(error);
+    console.error('Failed to connect to the database:', error);
   });
 
+// Example: Insert a document into the 'movies' collection
+const newMovie = { title: 'Example Movie' };
+moviesCollection.insertOne(newMovie)
+  .then(() => {
+    console.log('Movie inserted successfully');
+  })
+  .catch((error) => {
+    console.error('Failed to insert movie:', error);
+  });
+
+app.get("/", (req, res) => {
+  res.send("Welcome to MyFlix!");
+});
+
+const movies = require('./exported_collections/movies.json');
+const users = require('./exported_collections/users.json');
+    
     app.get('/users', (req, res) => {
       usersCollection.find({}).toArray()
         .then((users) => {
