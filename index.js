@@ -58,6 +58,7 @@ mongoose.connect( process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB'
 });
 
 const dbName = 'cfDB';
+const db = client.db('cfDB');
 
 // Connect to the server
 MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function(err, client) { 
@@ -67,8 +68,6 @@ MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, fu
   }
   console.log('Connected successfully to the server');
 });
-
-const db = client.db('cfDB');
 
 // Define movies collection
 const moviesCollection = db.collection('movies');
