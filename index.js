@@ -44,9 +44,6 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-// Connection URL for MongoDB
-const url = 'mongodb://127.0.0.1:27017'; 
-
 const dbName = 'cfDB';
 const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB';
 
