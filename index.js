@@ -121,7 +121,9 @@ MongoClient.connect(url, {
         console.log(movies);
     });
 });
-// Use the find() function to query the collection
+
+const moviesCollection = cfDB.db.collection('movies');
+
 moviesCollection.find({})
   .toArray()
   .then((movies) => {
@@ -160,16 +162,31 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-app.get("/movies", (req, res) => {
-  movies.find()
-    .then((movies) => {
-      res.status(200).json(movies);
-    })
-    .catch((err) => {
+app.get('/movies', (req, res) => {
+  client.connect((err) => {
+    if (err) {
       console.error(err);
       res.status(500).send('Error: ' + err);
-    });
+      return;
+    }
+
+    const db = client.db('databaseName');
+    const moviesCollection = db.collection('movies');
+
+    moviesCollection.find().toArray()
+      .then((movies) => {
+        res.status(200).json(movies);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send('Error: ' + err);
+      })
+      .finally(() => {
+        client.close();
+      });
+  });
 });
+
 
 // Get all users
 app.get('/users', (req, res) => {
