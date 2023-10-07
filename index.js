@@ -342,17 +342,17 @@ app.post('/users', (req, res) => {
           .then((user) => { res.status(201).json(user) })
           .catch((error) => {
             console.error(error);
-            res.status(500).send('Error: ' + error);
+            res.status(500).send('Error: ' + error.message);
           });
       }
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send('Error: ' + error);
+      res.status(500).send('Error: ' + error.message);
     });
 });
 
 const port = process.env.PORT || 8080;
-app.listen(port, '0.0.0.0',() => {
- console.log('Listening on Port ' + port);
+app.listen(port, '0.0.0.0', () => {
+  console.log('Listening on Port ' + port);
 });
