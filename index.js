@@ -52,10 +52,7 @@ const dbName = 'cfDB';
 const { MongoClient } = require('mongodb');
 
 // Connection URL and options
-const connectionUrl = 'mongodb://127.0.0.1:27017';
-const options = {
-  serverSelectionTimeoutMS: 60000, // Increase timeout to 60 seconds
-};
+const connectionUrl = 'mongodb://127.0.0.1:27017/cfDB';
 
 // Connect to the server
 MongoClient.connect(url, function(err, client) { 
