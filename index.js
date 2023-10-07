@@ -44,19 +44,20 @@ const movieSchema = new mongoose.Schema({
   }
 });
 
-/const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 
 // Connection URL for MongoDB
 const url = 'mongodb://127.0.0.1:27017'; 
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => {
-    console.log('Connected successfully to MongoDB');
-  })
-  .catch((err) => {
-    console.error('Error connecting to MongoDB:', err);
-  });
+mongoose.connect( process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/cfDB', {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((error) => {
+  console.log('Error connecting to MongoDB:', error);
+});
 
 const dbName = 'cfDB';
 
