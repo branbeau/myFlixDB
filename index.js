@@ -50,7 +50,7 @@ const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 // Require database library for MongoDB
 const { MongoClient } = require('mongodb');
 
-// Set up the connection URI and instantiate a new MongoClient
+// Set up the connection URI and a new MongoClient
 const uri = url;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -63,7 +63,7 @@ client.connect(function(err) {
 
   console.log('Connected to MongoDB successfully');
 
-  // Now that the database connection is established, you can define the cfDB object
+  // Once the database connection is established, define the cfDB object
   const cfDB = {
     movies: client.db(dbName).collection('movies')
   };
