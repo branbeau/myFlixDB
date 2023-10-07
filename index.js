@@ -117,25 +117,23 @@ MongoClient.connect(url, {
         console.error('Error connecting to MongoDB:', err);
         return;
     }
-    console.log('Connected successfully to the server');
-    const db = client.db(dbName);
+console.log('Connected successfully to the server');
+const db = client.db(dbName);
 
-    // Define movies collection as cfDB.movies
-    const cfDB = {
-        movies: db.collection('movies')
-    };
+// Define movies collection as cfDB.movies
+const cfDB = {
+  movies: db.collection('movies')
+};
 
-    // Access the movies collection and fetch all documents
-    cfDB.movies.find({}, (err, movies) => {
-        if (err) {
-            console.log(err);
-            return;
-        }
-        console.log(movies);
-    });
+// Access the movies collection and fetch all documents
+cfDB.movies.find({}, (err, movies) => {
+  if (err) {
+    console.log(err);
+    return;
+  }
+  console.log(movies);
 });
 
-// Default text response
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
@@ -144,30 +142,27 @@ app.get("/", (req, res) => {
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
+// Assuming you have defined and initialized moviesCollection
 app.get('/movies', (req, res) => {
-  const MONGODB_URI = process.env.MONGODB_URI;
-  mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
-    .then(() => {
-      console.log("Connected to MongoDB");
-      moviesCollection.find({}).toArray().then((movies) => {
-        res.status(200).json(movies);
-      });
+  moviesCollection.find({}).toArray()
+    .then((movies) => {
+      res.json(movies);
     })
-    .catch((error) => {
-      console.error("Error connecting to MongoDB", error);
-      res.status(500).send('Error: ' + error);
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500); 
     });
 });
 
-// Get all users
+// Assuming you have defined and initialized usersCollection
 app.get('/users', (req, res) => {
-  Users.find()
+  usersCollection.find({}).toArray()
     .then((users) => {
-      res.status(201).json(users);
+      res.json(users);
     })
     .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+      console.log(err);
+      res.sendStatus(500); // Or any other appropriate error status code
     });
 });
 
