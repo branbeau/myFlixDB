@@ -62,14 +62,18 @@ const movieSchema = new mongoose.Schema({
 const { MongoClient } = require('mongodb');
 
 const dbName = 'cfDB';
-const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
+const url = process.env.MONGODB_URI || 'mongodb://localhost:27017/' + dbName;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const client = new MongoClient(url, options);
 client.connect()
   .then((client) => {
-    // Get a reference to the database
     const db = client.db(dbName);
+    const moviesCollection = db.collection('movies');
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
     // Access the 'movies' collection using the 'db' reference
     const moviesCollection = db.collection('movies');
