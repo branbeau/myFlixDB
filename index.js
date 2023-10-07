@@ -58,6 +58,7 @@ MongoClient.connect(url, function(err, client) {
     return;
   }
   console.log('Connected successfully to the server');
+});
 
 // Access the desired database
 const db = client.db('cfDB');
