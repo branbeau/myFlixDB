@@ -51,6 +51,24 @@ const url = 'mongodb://myflixapp-56b818d4e5ca.herokuapp.com:27017';
 
 const dbName = 'cfDB';
 
+const { MongoClient } = require('mongodb');
+
+// Connection URL and options
+const connectionUrl = 'mongodb://127.0.0.1:27017';
+const options = {
+  serverSelectionTimeoutMS: 60000, // Increase timeout to 60 seconds
+};
+
+// Connect to MongoDB
+MongoClient.connect(connectionUrl, options, (err, client) => {
+  if (err) {
+    console.error('Error connecting to MongoDB:', err);
+    return;
+  }
+
+  console.log('Connected to MongoDB!');
+});
+
 // Connect to the server
 MongoClient.connect(url, function(err, client) { 
   if (err) {
