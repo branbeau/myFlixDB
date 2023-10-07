@@ -6,8 +6,6 @@ const uuid = require('uuid');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const app = express();
-const MongoClient = require('mongodb').MongoClient;
-
 
 const movieSchema = new mongoose.Schema({
   Title: {
@@ -48,9 +46,6 @@ const movieSchema = new mongoose.Schema({
 
 // Database Name
 const dbName = 'cfDB';
-
-// Create a new MongoClient
-const client = new MongoClient(url, { useNewUrlParser: true });
 
 // Use connect method to connect to the Server
 client.connect(function(err) {
