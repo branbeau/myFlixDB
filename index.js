@@ -68,7 +68,7 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   });
 
 // Connect to the MongoDB server
-client.connect((err) => {
+mongoose.connect((err) => {
   if (err) {
     console.error(err);
     return;
