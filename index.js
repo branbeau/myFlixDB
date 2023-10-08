@@ -5,7 +5,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
-const passport = require('passport');
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let auth = require('./auth')(app);
