@@ -58,9 +58,7 @@ const movieSchema = new mongoose.Schema({
 
 const dbName = 'cfDB';
 
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-//const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
+const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   //.then(() => {
     //console.log('Connected to MongoDB');
@@ -68,7 +66,6 @@ mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnified
   //.catch(err => {
     //console.error('Error connecting to MongoDB:', err);
   //});
-
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
