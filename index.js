@@ -6,8 +6,11 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
+middleware function (app.use(bodyParser.urlencoded({ extended: true }));
 
-const auth = require('./auth');
+let auth = require('./auth')(app);
+const passport = require('passport');
+require('./passport');
 
 // Create express app
 const app = express();
@@ -75,14 +78,14 @@ const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
 //Get all movies
-app.get('/movies', (req, res) => {
-  Movies.find()
+app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Movies.find()
     .then((movies) => {
-      res.status(200).json(movies);
+      res.status(201).json(movies);
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
 });
 
