@@ -76,8 +76,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-const movies = require('exported_collections/movies.json');
-const users = require('exported_collections/users.json');
+const movies = require('.exported_collections/movies.json');
+const users = require('.exported_collections/users.json');
 
 app.get('/movies', async (req, res) => {
   await Movies.find()
