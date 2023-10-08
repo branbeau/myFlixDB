@@ -79,25 +79,25 @@ app.get("/", (req, res) => {
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
-app.get('/movies', (req, res) => {
-  movies.find({}).toArray()
+app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Movies.find()
     .then((movies) => {
-      res.json(movies);
+      res.status(201).json(movies);
     })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500).send("Error: " + err);
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
 });
 
-app.get('/users', (req, res) => {
-  users.find({}).toArray()
+app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  await Users.find()
     .then((users) => {
-      res.json(users);
+      res.status(201).json(users);
     })
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500); 
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
     });
 });
 
