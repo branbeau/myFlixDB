@@ -67,14 +67,6 @@ mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
     console.error('Error connecting to MongoDB:', err);
   });
 
-// Connect to the MongoDB server
-mongoose.connect((err) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-});
-
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
