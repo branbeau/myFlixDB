@@ -79,7 +79,7 @@ app.get("/", (req, res) => {
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -90,7 +90,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
     });
 });
 
-app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/users', async (req, res) => {
   await Users.find()
     .then((users) => {
       res.status(201).json(users);
