@@ -78,11 +78,10 @@ const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
 //Get all movies
-app.get('/movies', (req, res) => {
 app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
   Movies.find()
     .then((movies) => {
-      res.status(201).json(movies);
+      res.status(200).json(movies);
     })
     .catch((err) => {
       console.error(err);
