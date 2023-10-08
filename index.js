@@ -76,22 +76,23 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-const moviesCollection = require('./exported_collections/movies.json');
-const usersCollection = require('./exported_collections/users.json');
+const movies = require('./exported_collections/movies.json');
+const users = require('./exported_collections/users.json');
 
-app.get('/movies', (req, res) => {
-  moviesCollection.find({}).toArray()
+app.get('/movies', passport.authentication("jwt", { session: false}),
+ (req, res) => {
+  movies.find({}).toArray()
     .then((movies) => {
       res.json(movies);
     })
     .catch((err) => {
       console.log(err);
-      res.sendStatus(500);
+      res.sendStatus(500).send("Error: " + err);
     });
 });
 
 app.get('/users', (req, res) => {
-  usersCollection.find({}).toArray()
+  users.find({}).toArray()
     .then((users) => {
       res.json(users);
     })
