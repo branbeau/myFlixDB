@@ -79,8 +79,7 @@ app.get("/", (req, res) => {
 const movies = require('./exported_collections/movies.json');
 const users = require('./exported_collections/users.json');
 
-app.get('/movies', passport.authentication("jwt", { session: false}),
- (req, res) => {
+app.get('/movies', passport.authenticate("jwt", { session: false}), (req, res) => {
   movies.find({}).toArray()
     .then((movies) => {
       res.json(movies);
