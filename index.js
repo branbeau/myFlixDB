@@ -74,8 +74,8 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-const movies = require('./exported_collections/movies.json');
-const users = require('./exported_collections/users.json');
+const Movies = Models.Movie;
+const Users = Models.User;
 
 //Get all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {

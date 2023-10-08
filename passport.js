@@ -11,27 +11,27 @@ passport.use(new LocalStrategy({
   usernameField: 'Username',
   passwordField: 'Password'
 }, (username, password, callback) => {
-  console.log(username + ' ' + password);
-  Users.findOne({ Username: username }) 
-    .then((user) => {
+  console.log(username + '  ' + password);
+  Users.findOne({ Username: username })
+    .then(user => {
       if (!user) {
-        console.log('incorrect username'); 
+        console.log('incorrect username');
         return callback(null, false, { message: 'Incorrect username or password.' });
       }
 
       if (!user.validatePassword(password)) {
-        console.log('incorrect password'); 
+        console.log('incorrect password');
         return callback(null, false, { message: 'Incorrect password.' });
       }
 
       console.log('finished');
-      callback(null, user);
+      return callback(null, user);
     })
     .catch(error => {
-      console.log('error');
-      callback(error);
+      console.log(error);
+      return callback(error);
     });
-})); 
+}));
 
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
