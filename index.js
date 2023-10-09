@@ -2,11 +2,15 @@ require('dotenv').config();
 
 const express = require('express');
 const mongoose = require('mongoose');
+const Models = require('./models.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 const auth = require('./auth');
+
+const Movies = Models.Movie;
+const Users = Models.User;
 
 // Create express app
 const app = express();
@@ -21,53 +25,12 @@ app.use(passport.initialize());
 auth(app, passport);
 require('./passport');
 
-const movieSchema = new mongoose.Schema({
-  Title: {
-    type: String,
-    required: true
-  },
-  Description: {
-    type: String,
-    required: true
-  },
-  Genre: {
-    Name: {
-      type: String,
-      required: true
-    },
-    Description: {
-      type: String,
-      required: true
-    }
-  },
-  Director: {
-    Name: {
-      type: String,
-      required: true
-    },
-    Bio: {
-      type: String
-    },
-    BirthYear: {
-      type: Number
-    }
-  },
-  ImagePath: {
-    type: String,
-    required: true
-  }
-});
-
 const dbName = 'cfDB';
 
-const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
+//const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-  //.then(() => {
-    //console.log('Connected to MongoDB');
-  //})
-  //.catch(err => {
-    //console.error('Error connecting to MongoDB:', err);
-  //});
+mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
