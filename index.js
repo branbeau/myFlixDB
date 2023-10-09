@@ -45,7 +45,7 @@ app.get("/", (req, res) => {
 
 //Get all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Movies.find()
+  Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
     })
@@ -56,7 +56,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 });
 
 app.get('/users', async (req, res) => {
-  await Users.find()
+  Users.find()
     .then((users) => {
       res.status(201).json(users);
     })
