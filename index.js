@@ -1,25 +1,25 @@
 require('dotenv').config();
 
-const mongoose = require('mongoose');
 const express = require('express');
+const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
-app.use(bodyParser.urlencoded({ extended: true }));
-
-let auth = require('./auth')(app);
 const passport = require('passport');
-require('./passport');
+const auth = require('./auth');
 
 // Create express app
 const app = express();
 
+// Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(passport.initialize());
 
+// Authentication setup
 auth(app, passport);
+require('./passport');
 
 const movieSchema = new mongoose.Schema({
   Title: {
