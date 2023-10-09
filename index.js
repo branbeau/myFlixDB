@@ -36,9 +36,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-const Movies = Models.Movie;
-const Users = Models.User;
-
 //Get all movies
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   await Movies.find()
