@@ -30,16 +30,8 @@ const dbName = 'cfDB';
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true});
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
-
 // Get the MongoDB connection URI from an environment variable
 const uri = process.env.MONGODB_URI;
-
-let allowedOrigins = [
-  "https://myflixapp-56b818d4e5ca.herokuapp.com",
-  "http://localhost:1234",
-  "http://localhost:8080",
-];
 
 app.use(cors());
 
