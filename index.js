@@ -16,7 +16,7 @@ const Users = Models.User;
 
 const app = express();
 app.use(express.json()); 
-aop.use(express.urlencoded({ extended: true }); 
+app.use(express.urlencoded({ extended: true }); 
 
 // Middleware app
 app.use(cors());
