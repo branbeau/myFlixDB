@@ -8,16 +8,18 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 const auth = require('./auth');
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
 
 const Movies = Models.Movie;
 const Users = Models.User;
 
-// Create express app
+setup
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extend// Create express app
 const app = express();
 
-// Middleware setup
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+// Middleware app
 app.use(cors());
 app.use(passport.initialize());
 
@@ -30,6 +32,35 @@ const dbName = 'cfDB';
 //const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+
+const { MongoClient, ServerApiVersion } = require('mongodb');
+
+// Get the MongoDB connection URI from an environment variable
+const uri = process.env.MONGODB_URI;
+
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const client = new MongoClient(uri, {
+  serverApi: {
+    version: ServerApiVersion.v1,
+    strict: true,
+    deprecationErrors: true,
+  }
+});
+
+async function run() {
+  try {
+    // Connect the client to the server (optional starting in v4.7)
+    await client.connect();
+    // Send a ping to confirm a successful connection
+    await client.db("admin").command({ ping: 1 });
+    console.log("Pinged your deployment. You successfully connected to MongoDB!");
+  } finally {
+    // Ensures that the client will close when you finish/error
+    await client.close();
+  }
+}
+
+run().catch(console.dir);
 
 let allowedOrigins = [
   "https://myflixapp-56b818d4e5ca.herokuapp.com",
