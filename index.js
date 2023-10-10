@@ -14,8 +14,9 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extend// Create express app
+const app = express();
+app.use(express.json()); 
+aop.use(express.urlencoded({ extended: true }); 
 
 // Middleware app
 app.use(cors());
@@ -84,14 +85,51 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
     });
 });
 
-app.get('/users', async (req, res) => {
-  Users.find()
-    .then((users) => {
-      res.status(201).json(users);
+//Add a user
+/* Expect JSON in this format
+{
+  ID: Integer,
+  Username: String,
+  Password: String,
+  Email: String,
+  Birthday: Date
+}*/
+
+app.post('/users', async (req, res) => {
+  await Users.findOne({ Username: req.body.Username })
+    .then((user) => {
+      if (user) {
+        return res.status(400).send(req.body.Username + 'already exists');
+      } else {
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: req.body.Password,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
+          })
+          .then((user) =>{res.status(201).json(user) })
+        .catch((error) => {
+          console.error(error);
+          res.status(500).send('Error: ' + error);
+        })
+      }
     })
     .catch((error) => {
       console.error(error);
       res.status(500).send('Error: ' + error);
+    });
+});
+
+// Get all users
+app.get('/users', async (req, res) => {
+  await Users.find()
+    .then((users) => {
+      res.status(201).json(users);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error: ' + err);
     });
 });
 
