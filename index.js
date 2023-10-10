@@ -30,7 +30,7 @@ const dbName = 'cfDB';
 
 //const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + dbName;
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true});
 
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
