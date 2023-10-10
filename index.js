@@ -14,10 +14,8 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extend// Create express app
-const app = express();
 
 // Middleware app
 app.use(cors());
