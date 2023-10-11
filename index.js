@@ -106,17 +106,17 @@ app.post('/users', passport.authenticate('jwt', { session: false }), async (req,
     });
 });
 
-// Get all users
-app.get('/users', async (req, res) => {
-  await Users.find()
-    .then((users) => {
-      res.status(201).json(users);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error: ' + err);
-    });
-});
+// // Get all users
+// app.get('/users', async (req, res) => {
+//   await Users.find()
+//     .then((users) => {
+//       res.status(201).json(users);
+//     })
+//     .catch((err) => {
+//       console.error(err);
+//       res.status(500).send('Error: ' + err);
+//     });
+// });
 
 // Get a user by username
 app.get('/users/:Username', (req, res) => {
