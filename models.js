@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + cfDB;
-const uri = process.env.MONGODB_URI;
-
 let movieSchema = mongoose.Schema({
   Title: {type: String, required: true},
   Description: {type: String, required: true},
