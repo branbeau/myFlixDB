@@ -101,15 +101,6 @@ app.post('/users', async (req, res) => {
     });
 });
 
-async function run() {
-  await mongoose.connect('mongodb://127.0.0.1:27017');
-  mongoose.model('User', schema);
-
-  await mongoose.model('User').findOne().maxTimeMS(30000); // Set the timeout value as desired
-}
-
-run();
-
 // // Get all users
 // app.get('/users', async (req, res) => {
 //   await Users.find()
