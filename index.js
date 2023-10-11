@@ -52,24 +52,15 @@ app.get("/", (req, res) => {
     //});
 //});
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  // Construct the file path to movies.json
-  const filePath = path.join(__dirname, 'exported_collections', 'movies.json');
+aapp.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  try {
+    const movies = await Movie.find().maxTimeMS(30000); // Set the timeout value as desired
 
-  // Read movies.json file
-  fs.readFile(filePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error(err);
-      res.status(500).send('Error: Failed to read movies data.');
-      return;
-    }
-
-    // Parse the JSON data
-    const movies = JSON.parse(data);
-
-    // Send the movies data as a response
     res.status(200).json(movies);
-  });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error: Failed to fetch movies data.');
+  }
 });
 
 //Add a user
@@ -82,21 +73,22 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
   Birthday: Date
 }*/
 
-app.post('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  await Users.findOne({ Username: req.body.Username })
+app.post('/users', async (req, res) => {
+  let hashedPassword = Users.hashPassword(req.body.Password);
+  await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
+      //If the user is found, send a response that it already exists
         return res.status(400).send(req.body.Username + ' already exists');
       } else {
-        Users.create({
-          Username: req.body.Username,
-          Password: req.body.Password,
-          Email: req.body.Email,
-          Birthday: req.body.Birthday
-        })
-          .then((user) => {
-            res.status(201).json(user);
+        Users
+          .create({
+            Username: req.body.Username,
+            Password: hashedPassword,
+            Email: req.body.Email,
+            Birthday: req.body.Birthday
           })
+          .then((user) => { res.status(201).json(user) })
           .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error);
