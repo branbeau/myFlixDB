@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
+const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + cfDB;
+const uri = process.env.MONGODB_URI;
+
 let movieSchema = mongoose.Schema({
   Title: {type: String, required: true},
   Description: {type: String, required: true},
@@ -35,9 +38,6 @@ userSchema.methods.validatePassword = function(password) {
 
 let Movie = mongoose.model('Movie', movieSchema);
 let User = mongoose.model('User', userSchema);
-
-
-mongoose.connect('mongodb://127.0.0.1:27017/cfDB', { useNewUrlParser: true, useUnifiedTopology: true });
 
 module.exports.Movie = Movie;
 module.exports.User = User;
