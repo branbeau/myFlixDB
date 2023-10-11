@@ -54,7 +54,7 @@ app.get("/", (req, res) => {
 
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
-    const movies = await Movie.find().maxTimeMS(60000); // Set the timeout value as desired
+    const movies = await Movie.find().maxTimeMS(30000); // Set the timeout value as desired
 
     res.status(200).json(movies);
   } catch (error) {
@@ -75,7 +75,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 app.post('/users', async (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOne({ Username: req.body.Username }, null, { timeout: 60000 }) // Search to see if a user with the requested username already exists
+  await Users.findOne({ Username: req.body.Username }, null, { timeout: 30000 }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
       //If the user is found, send a response that it already exists
@@ -100,6 +100,15 @@ app.post('/users', async (req, res) => {
       res.status(500).send('Error: ' + error);
     });
 });
+
+async function run() {
+  await mongoose.connect('mongodb://127.0.0.1:27017');
+  mongoose.model('User', schema);
+
+  await mongoose.model('User').findOne().maxTimeMS(30000); // Set the timeout value as desired
+}
+
+run();
 
 // // Get all users
 // app.get('/users', async (req, res) => {
