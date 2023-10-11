@@ -3,6 +3,29 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
+
+let movieSchema = mongoose.Schema({
+  Title: {type: String, required: true},
+  Description: {type: String, required: true},
+  Genre: {
+    Name: String,
+    Description: String
+  },
+  Director: {
+    Name: String,
+    Bio: String
+  },
+  Actors: [String],
+  ImagePath: String,
+  Featured: Boolean
+});
+
+
+let Movie = mongoose.model('Movie', movieSchema);
+let User = mongoose.model('User', userSchema);
+
 
 let userSchema = mongoose.Schema({
   Username: { type: String, required: true },
@@ -86,3 +109,6 @@ passport.use(
     }
   )
 );
+
+module.exports.Movie = Movie;
+module.exports.User = User;
