@@ -1,0 +1,5 @@
+[{"_id":{"$oid":"651f7fa415e044b3012102a9"},"Username": "gabbybeau123","Password": "test456","Email": "gabby@gmail.com","Birthday": "1990-11-01","FavoriteMovies": [1,3,5]},
+{"_id":{"$oid":"651f7fa415e044b3012102aa"},"Username": "millie567","Password": "test789","Email": "millie@gmail.com","Birthday": "1972-05-30","FavoriteMovies": [4,2,1]},
+{"_id":{"$oid":"651f7fa415e044b3012102ab"},"Username": "branbeau891","Password": "test101","Email": "bran@gmail.com","Birthday": "1990-01-21","FavoriteMovies": [8,10,6]},
+{"_id":{"$oid":"651f7fa415e044b3012102ac"},"Username": "barb102","Password": "test417","Email": "barb@gmail.com","Birthday": "1950-04-15","FavoriteMovies": [7,3,5]},
+{"_id":{"$oid":"651f7fa415e044b3012102ad"},"Username": "will777","Password": "test891","Email": "will@gmail.com","Birthday": "1960-08-01","FavoriteMovies": [10,4,5]}]
