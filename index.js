@@ -12,6 +12,9 @@ const fs = require('fs');
 const Movies = Models.Movie;
 const Users = Models.User;
 
+const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
+const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
+
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
