@@ -52,7 +52,7 @@ app.get("/", (req, res) => {
     //});
 //});
 
-aapp.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   try {
     const movies = await Movie.find().maxTimeMS(30000); // Set the timeout value as desired
 
