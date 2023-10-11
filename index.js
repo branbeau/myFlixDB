@@ -304,7 +304,7 @@ app.get("/director/:Name", (req, res) => {
 });
 
 //Allow users to register and deregister
-app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.post('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
