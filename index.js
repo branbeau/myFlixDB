@@ -304,7 +304,7 @@ app.get("/director/:Name", (req, res) => {
 });
 
 //Allow users to register and deregister
-app.post('/users', (req, res) => {
+app.get('/users', passport.authenticate('jwt', { session: false }), async (req, res) => {
   Users.findOne({ Username: req.body.Username })
     .then((user) => {
       if (user) {
@@ -316,7 +316,16 @@ app.post('/users', (req, res) => {
           Email: req.body.Email,
           Birthday: req.body.Birthday
         })
-          .then((user) => { res.status(201).json(user) })
+          .then((user) => {
+            // Create and sign JWT token
+            const token = jwt.sign({ username: user.Username }, 'your_secret_key');
+
+            // Include the token in the response
+            res.status(201).json({
+              user: user,
+              token: token
+            });
+          })
           .catch((error) => {
             console.error(error);
             res.status(500).send('Error: ' + error.message);
