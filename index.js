@@ -8,6 +8,8 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
 const auth = require('./auth');
+const path = require('path');
+const fs = require('fs');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -40,15 +42,35 @@ app.get("/", (req, res) => {
 });
 
 //Get all movies
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  Movies.find()
-    .then((movies) => {
+//app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  //Movies.find()
+    //.then((movies) => {
       res.status(201).json(movies);
-    })
-    .catch((error) => {
-      console.error(error);
-      res.status(500).send('Error: ' + error);
-    });
+    //})
+    //.catch((error) => {
+      //console.error(error);
+      //res.status(500).send('Error: ' + error);
+    //});
+//});
+
+app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+  // Construct the file path to movies.json
+  const filePath = path.join(__dirname, 'exported_collections', 'movies.json');
+
+  // Read movies.json file
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error: Failed to read movies data.');
+      return;
+    }
+
+    // Parse the JSON data
+    const movies = JSON.parse(data);
+
+    // Send the movies data as a response
+    res.status(200).json(movies);
+  });
 });
 
 //Add a user
