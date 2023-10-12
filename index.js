@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Models = require('./models.js');
+const morgan = require("morgan");
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
@@ -15,8 +16,11 @@ const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json'
 const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
 
 const app = express();
+
+app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(morgan('common'));
 app.use(cors());
 app.use(passport.initialize());
 
