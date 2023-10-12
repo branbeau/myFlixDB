@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
-const auth = require('./auth');
+const auth = require('./auth')(app);
 const path = require('path');
 const fs = require('fs');
 
