@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const passport = require('passport');
-const auth = require('./auth')(app);
+const auth = require('./auth');
 const path = require('path');
 const fs = require('fs');
 
@@ -14,6 +14,8 @@ const Users = Models.User;
 
 const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
 const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
+
+let auth = require("./auth")(app);
 
 const app = express();
 app.use(express.json());
