@@ -6,6 +6,7 @@ const cors = require('cors');
 const { check, validationResult } = require('express-validator');
 const path = require('path');
 const fs = require('fs');
+const passport = require('passport');
 
 const Movies = Models.Movie;
 const Users = Models.User;
@@ -20,12 +21,7 @@ app.use(cors());
 app.use(passport.initialize());
 
 // Authentication setup
-//auth(app, passport);
-//require('./passport');
-
-// Authentication setup
 let auth = require("./auth")(app);
-const passport = require('passport');
 require('./passport');
 
 const dbName = 'cfDB';
