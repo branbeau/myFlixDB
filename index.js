@@ -28,8 +28,6 @@ require('./passport');
 const dbName = 'cfDB';
 
 const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + cfDB;
-mongoose.connect('mongodb://127.0.0.1:27017/dbname', { useNewUrlParser: true, useUnifiedTopology: true });
-
 //mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
 //mongoose.connect(process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: true});
 
@@ -55,14 +53,14 @@ app.get("/", (req, res) => {
 //});
 
 app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
-  try {
-    const movies = await Movie.find().maxTimeMS(30000); // Set the timeout value as desired
-
-    res.status(200).json(movies);
-  } catch (error) {
-    console.error(error);
-    res.status(500).send('Error: Failed to fetch movies data.');
-  }
+  await Movies.find()
+    .then((movies) => {
+      res.status(201).json(movies);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send('Error: ' + error);
+    });
 });
 
 //Add a user
@@ -77,7 +75,7 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 app.post('/users', async (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
-  await Users.findOne({ Username: req.body.Username }, null, { timeout: 30000 }) // Search to see if a user with the requested username already exists
+  await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
     .then((user) => {
       if (user) {
       //If the user is found, send a response that it already exists
