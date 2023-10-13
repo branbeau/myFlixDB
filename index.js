@@ -12,8 +12,8 @@ const passport = require('passport');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
-const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
+//const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
+//const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
 
 const app = express();
 
