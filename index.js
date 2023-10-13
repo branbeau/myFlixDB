@@ -30,7 +30,7 @@ require('./passport');
 
 const dbName = 'cfDB';
 
-mongoose.connect(process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + cfDB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + cfDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 //const url = process.env.CONNECTION_URI || 'mongodb://127.0.0.1:27017/' + cfDB;
 //mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
