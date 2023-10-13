@@ -42,7 +42,6 @@ app.get("/", (req, res) => {
   res.send("Welcome to MyFlix!");
 });
 
-//Get all movies
 //app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
   //Movies.find()
     //.then((movies) => {
