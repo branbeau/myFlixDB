@@ -30,10 +30,18 @@ require('./passport');
 
 const dbName = 'cfDB';
 
-const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + 'cfDB';
+//const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + 'cfDB';
 // console.log("PROCESS" + process.env.CONNECTION_URI)
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+
+// Create a connection string using environment variables
+const connectionURI = process.env.CONNECTION_URI || 'mongodb://localhost:27017/cfDB';
+
+// Connect to the MongoDB cluster using mongoose
+mongoose.connect(connectionURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
 // // Get the MongoDB connection URI from an environment variable
 // const uri = process.env.MONGODB_URI;
 
