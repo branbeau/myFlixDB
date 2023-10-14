@@ -30,7 +30,7 @@ require('./passport');
 
 const dbName = 'cfDB';
 
-const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + cfDB;
+const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + 'cfDB';
 console.log("PROCESS" + process.env.CONNECTION_URI)
 mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
