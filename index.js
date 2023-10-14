@@ -42,6 +42,10 @@ const connectionURI = process.env.CONNECTION_URI || 'mongodb://localhost:27017/c
 mongoose.connect(connectionURI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
     console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
 // // Get the MongoDB connection URI from an environment variable
 // const uri = process.env.MONGODB_URI;
 
