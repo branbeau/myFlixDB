@@ -1,0 +1,9 @@
+mongoimport --uri mongodb+srv://branbeau:6MkWYv9R5yY4wgmv@myflixdb.dcdfl.mongodb.net/cfDB --collection movies --type json --file ../exported_collections/movies.json
+
+mongooseimport --uri mongodb+srv://branbeau:6MkWYv9R5yY4wgmv@myflixdb.dcdfl.mongodb.net/cfDB --collection movies --type json --file ../exported_collections/movies.json
+
+mongodb+srv://branbeau:<password>@myflixdb.vtquwb3.mongodb.net/?retryWrites=true&w=majority
+
+mongooseimport --uri mongodb+srv://branbeau:6MkWYv9R5yY4wgmv@myflixDB.dcdfl.mongodb.net/cfDB --collection movies --type json --file movies.json
+
+
