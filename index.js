@@ -12,8 +12,8 @@ const passport = require('passport');
 const Movies = Models.Movie;
 const Users = Models.User;
 
-const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
-const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
+//const usersData = JSON.parse(fs.readFileSync('./exported_collections/users.json', 'utf8'));
+//const moviesData = JSON.parse(fs.readFileSync('./exported_collections/movies.json', 'utf8'));
 
 const app = express();
 
@@ -30,12 +30,24 @@ require('./passport');
 
 const dbName = 'cfDB';
 
-const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + cfDB;
-console.log("PROCESS" + process.env.CONNECTION_URI)
-mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
+//const url = process.env.CONNECTION_URI || 'mongodb://localhost:27017/' + 'cfDB';
+// console.log("PROCESS" + process.env.CONNECTION_URI)
+//mongoose.connect( process.env.CONNECTION_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// Get the MongoDB connection URI from an environment variable
-const uri = process.env.MONGODB_URI;
+
+// Create a connection string using environment variables
+const connectionURI = process.env.CONNECTION_URI || 'mongodb://localhost:27017/cfDB';
+
+// Connect to the MongoDB cluster using mongoose
+mongoose.connect(connectionURI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((error) => {
+    console.error('Error connecting to MongoDB:', error);
+  });
+// // Get the MongoDB connection URI from an environment variable
+// const uri = process.env.MONGODB_URI;
 
 app.use(cors());
 
@@ -54,7 +66,7 @@ app.get("/", (req, res) => {
     //});
 //});
 
-app.get('/movies', passport.authenticate('jwt', { session: false }), async (req, res) => {
+app.get('/movies', async (req, res) => {
   await Movies.find()
     .then((movies) => {
       res.status(201).json(movies);
@@ -77,8 +89,8 @@ app.get('/movies', passport.authenticate('jwt', { session: false }), async (req,
 
 app.post('/users', async (req, res) => {
   let hashedPassword = Users.hashPassword(req.body.Password);
-    //await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
-    await Users.findOne({ Username: req.body.Username }, { maxTimeMS: 30000 })
+    await Users.findOne({ Username: req.body.Username }) // Search to see if a user with the requested username already exists
+    //await Users.findOne({ Username: req.body.Username }, { maxTimeMS: 30000 })
     .then((user) => {
       if (user) {
       //If the user is found, send a response that it already exists
